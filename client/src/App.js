@@ -1,14 +1,14 @@
-import logo from './logo.svg';
+// import logo from './logo.svg';
 import './App.css';
 import React, { useEffect, useState } from 'react';
 import {Routes, Route} from 'react-router-dom'
-import Home from './Home';
-import ProductUpload from './ProductUpload';
-import Login from './Login';
-import SignUp from './SignUp';
-import ProductCatalog from './ProductCatalog';
-import UserSkinGoal from './UserSkinGoal';
-import UserRegime from './UserRegime';
+import Home from './components/Home';
+import ProductUpload from './components/ProductUpload';
+import Login from './components/Login';
+import SignUp from './components/SignUp';
+import ProductCatalog from './components/ProductCatalog';
+import UserSkinGoal from './components/UserSkinGoal';
+import UserRegime from './components/UserRegime';
 
 
 function App() {
