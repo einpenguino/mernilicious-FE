@@ -4,10 +4,10 @@ import {useNavigate} from 'react-router-dom';
 
 function Login() {
 
-  const [username, setUsername] = useState('')
+  const [userName, setUsername] = useState('')
   const [password, setPassword] = useState('')
 
-  const form = {username , password}
+  const form = {userName , password}
 
   const navigate = useNavigate();
 
@@ -18,12 +18,13 @@ function Login() {
                   headers :{
                     'Content-Type': 'application/json'
                   },
+                  // mode:'no-cors',
                   body:JSON.stringify(form)
                 }
 
 //async function to sent login details to DB
     const postUserLogin = async () => {
-      const response = await fetch('http://localhost:5000/login', options);
+      const response = await fetch(`${process.env.REACT_APP_EXPRESS_URL}/login`, options);
       try{ 
         
       const data = await response.json()
@@ -38,7 +39,7 @@ function Login() {
       }
 
       else{
-         navigate("/UserSkinGoal")
+         navigate("/skingoal")
       }
 
       }
@@ -57,8 +58,6 @@ function Login() {
     setUsername('')
     setPassword('')
     postUserLogin()
-  
-  
   }
 
 
@@ -75,11 +74,11 @@ function Login() {
 
         <h1>Login</h1>
         <form onSubmit={handleSubmit}>
-          <label>Username:</label>
+          <label>Email:</label>
             <input 
              type="text"
              required
-             value = {username}
+             value = {userName}
              onChange = {(e) => setUsername(e.target.value)}
             />
            <br></br>
@@ -95,7 +94,7 @@ function Login() {
           <input type="submit" value="Submit" />
         </form>
          
-         <Link to="/SignUp">
+         <Link to="/signUp">
             SignUp
         </Link>
         
