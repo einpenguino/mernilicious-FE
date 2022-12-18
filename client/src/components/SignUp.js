@@ -15,8 +15,10 @@ function SignUp() {
   const navigate = useNavigate();
    
   //regex to confim if email address is valid & password requirement
-  let regexUsername = new RegExp("([!#-'*+/-9=?A-Z^-~-]+(\.[!#-'*+/-9=?A-Z^-~-]+)*|\"\(\[\]!#-[^-~ \t]|(\\[\t -~]))+\")@([!#-'*+/-9=?A-Z^-~-]+(\.[!#-'*+/-9=?A-Z^-~-]+)*|\[[\t -Z^-~]*])");
-  let regexPassword = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})");
+  // let regexUsername = new RegExp("([!#-'*+/-9=?A-Z^-~-]+(\.[!#-'*+/-9=?A-Z^-~-]+)*|\"\(\[\]!#-[^-~ \t]|(\\[\t -~]))+\")@([!#-'*+/-9=?A-Z^-~-]+(\.[!#-'*+/-9=?A-Z^-~-]+)*|\[[\t -Z^-~]*])");
+  // let regexPassword = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})");
+  let regexUsername = new RegExp(".");
+  let regexPassword = new RegExp(".");
 
   //the post 
   const options = {
@@ -29,7 +31,7 @@ function SignUp() {
 
 //async function to post data to DB
     const postUser = async () => {
-      const response = await fetch('http://localhost:5000/userCred', options);
+      const response = await fetch(`${process.env.REACT_APP_EXPRESS_URL}/userCred`, options);
       try{ 
       
       const data = await response.json();

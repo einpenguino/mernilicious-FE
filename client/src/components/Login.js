@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import {Link} from 'react-router-dom'
 import {useNavigate} from 'react-router-dom';
+const httpStatus = require('http-status');
 
 function Login() {
 
@@ -25,29 +26,33 @@ function Login() {
 //async function to sent login details to DB
     const postUserLogin = async () => {
       const response = await fetch(`${process.env.REACT_APP_EXPRESS_URL}/login`, options);
+      console.log(response.status)
       try{ 
+        if (response.status === 200){
+          navigate("/skingoal")
+        }
+        else{
+          // POP LOGIN FAILED
+        }
+        // const data = await response.json()
+        //   console.log(data)
+        // if (data.includes("Email")){
+        //   alert (data)
+        // }
+
+        // else if(data.includes("Password")){
+        //   alert (data)
+        // }
         
-      const data = await response.json()
-        console.log(data)
+        // else{
+        //   navigate("/skingoal")
+        // }
 
-      if (data.includes("Email")){
-        alert (data)
-      }
-
-      else if(data.includes("Password")){
-        alert (data)
-      }
-
-      else{
-         navigate("/skingoal")
-      }
-
-      }
-      catch (error){
+      }catch (error){
+      
        console.log(error.message)
 
       }
-    
     }
 
 
@@ -74,7 +79,7 @@ function Login() {
 
         <h1>Login</h1>
         <form onSubmit={handleSubmit}>
-          <label>Email:</label>
+          <label>Username: </label>
             <input 
              type="text"
              required

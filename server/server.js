@@ -80,7 +80,7 @@ app.post("/", async (req,res) => {
 
 
 //Create a POST route, that creates new user (signup) and stored into the DB
-app.post("/userCred", async (req,res) => {
+app.post("/signup", async (req,res) => {
 
    const hash = await bcrypt.hash(req.body.password, 10)
     const user = new UserCreds({
