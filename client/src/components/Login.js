@@ -1,62 +1,44 @@
 import React, { useEffect, useState } from 'react';
-import {Link} from 'react-router-dom'
-import {useNavigate} from 'react-router-dom';
-const httpStatus = require('http-status');
-
-function Login() {
-
+import { Grid,Paper, Avatar, TextField, Button, Typography } from '@mui/material'
+import { Link, useNavigate } from 'react-router-dom'
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
+const Login=()=>{
+  
   const [userName, setUsername] = useState('')
   const [password, setPassword] = useState('')
 
   const form = {userName , password}
-
   const navigate = useNavigate();
 
-//the post 
+  //the post 
   const options = {
                   method : 'POST',
                   credentials: "include",
                   headers :{
                     'Content-Type': 'application/json'
                   },
-                  // mode:'no-cors',
                   body:JSON.stringify(form)
                 }
 
-//async function to sent login details to DB
-    const postUserLogin = async () => {
-      const response = await fetch(`${process.env.REACT_APP_EXPRESS_URL}/login`, options);
-      console.log(response.status)
-      try{ 
-        if (response.status === 200){
-          navigate("/skingoal")
-        }
-        else{
-          // POP LOGIN FAILED
-        }
-        // const data = await response.json()
-        //   console.log(data)
-        // if (data.includes("Email")){
-        //   alert (data)
-        // }
-
-        // else if(data.includes("Password")){
-        //   alert (data)
-        // }
-        
-        // else{
-        //   navigate("/skingoal")
-        // }
-
-      }catch (error){
-      
-       console.log(error.message)
-
+  //async function to sent login details to DB
+  const postUserLogin = async () => {
+    const response = await fetch(`${process.env.REACT_APP_EXPRESS_URL}/login`, options);
+    console.log(response.status)
+    try{ 
+      if (response.status === 200){
+        navigate("/skingoal")
       }
+      else{
+        // POP LOGIN FAILED
+      }
+    }catch (error){
+    
+      console.log(error.message)
+
     }
-
-
-
+  }
 
   const handleSubmit = (e) =>{
     e.preventDefault();
@@ -65,47 +47,62 @@ function Login() {
     postUserLogin()
   }
 
-
-
- 
-
-  return (
-    <div className="App">
-      <header className="App-header">
-
-        <Link to="/">
-            Home
-        </Link>
-
-        <h1>Login</h1>
-        <form onSubmit={handleSubmit}>
-          <label>Username: </label>
-            <input 
-             type="text"
-             required
-             value = {userName}
-             onChange = {(e) => setUsername(e.target.value)}
-            />
-           <br></br>
-
-          <label>Password: </label>
-          <input
-          type="password" 
-          required
-          value = {password}
-          onChange = {(e) => setPassword(e.target.value)}
-          />
-         <br></br>
-          <input type="submit" value="Submit" />
-        </form>
-         
-         <Link to="/signUp">
-            SignUp
-        </Link>
-        
-      </header>
-    </div>
-  );
+    const paperStyle={padding :20,height:'70vh',width:280, margin:"20px auto"}
+    const avatarStyle={backgroundColor:'#1bbd7e'}
+    const btnstyle={margin:'8px 0'}
+    return(
+        <Grid>
+            <Paper elevation={10} style={paperStyle}>
+                <Grid align='center'>
+                     <Avatar style={avatarStyle}><LockOutlinedIcon/></Avatar>
+                    <h2>Sign In</h2>
+                </Grid>
+                <TextField 
+                label='Username' 
+                placeholder='Enter username' 
+                variant="outlined" 
+                fullWidth 
+                required
+                onChange={(e) => {setUsername(e.target.value)}}
+                />
+                <TextField 
+                label='Password' 
+                placeholder='Enter password' 
+                type='password' 
+                variant="outlined" 
+                fullWidth 
+                required
+                onChange={(e) => {setPassword(e.target.value)}}
+                />
+                {/* <FormControlLabel
+                    control={
+                    <Checkbox
+                        name="checkedB"
+                        color="primary"
+                    />
+                    }
+                    label="Remember me"
+                 /> */}
+                <Button 
+                type='submit' 
+                color='primary' 
+                variant="contained" 
+                style={btnstyle} 
+                fullWidth 
+                onClick={handleSubmit}>Sign in</Button>
+                {/* <Typography >
+                     <Link href="#" >
+                        Forgot password ?
+                      </Link>
+                </Typography> */}
+                <Typography > Do you have an account ?
+                     <Link to="/signup" >
+                        Sign Up 
+                </Link>
+                </Typography>
+            </Paper>
+        </Grid>
+    )
 }
 
 export default Login;
