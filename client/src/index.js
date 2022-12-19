@@ -12,6 +12,7 @@ import SignUp from './components/SignUp';
 import ProductCatalog from './components/ProductCatalog';
 import UserSkinGoal from './components/UserSkinGoal';
 import UserRegime from './components/UserRegime';
+import { CookiesProvider } from 'react-cookie';
 
 const router = createBrowserRouter([
   {
@@ -52,7 +53,10 @@ root.render(
   //     <App/>
   //   </BrowserRouter>
   // </React.StrictMode>
-  <RouterProvider router={router} />
+  <CookiesProvider>
+    <RouterProvider router={router} />
+  </CookiesProvider>
+  
 );
 
 // If you want to start measuring performance in your app, pass a function

@@ -4,10 +4,14 @@ import { Link, useNavigate } from 'react-router-dom'
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
+import { useCookies } from 'react-cookie'
+// import Cookies from 'js-cookie'
+
 const Login=()=>{
   
   const [userName, setUsername] = useState('')
   const [password, setPassword] = useState('')
+  const [cookies, setCookie, removeCookie] = useCookies(['alabaster']);
 
   const form = {userName , password}
   const navigate = useNavigate();
@@ -25,7 +29,9 @@ const Login=()=>{
   //async function to sent login details to DB
   const postUserLogin = async () => {
     const response = await fetch(`${process.env.REACT_APP_EXPRESS_URL}/login`, options);
-    console.log(response.status)
+    // console.log(options.body)
+    // console.log(response.status)
+    console.log(cookies.value)
     try{ 
       if (response.status === 200){
         navigate("/skingoal")
@@ -63,6 +69,7 @@ const Login=()=>{
                 variant="outlined" 
                 fullWidth 
                 required
+                value = {userName}
                 onChange={(e) => {setUsername(e.target.value)}}
                 />
                 <TextField 
@@ -72,6 +79,7 @@ const Login=()=>{
                 variant="outlined" 
                 fullWidth 
                 required
+                value = {password}
                 onChange={(e) => {setPassword(e.target.value)}}
                 />
                 {/* <FormControlLabel
