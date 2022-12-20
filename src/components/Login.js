@@ -21,8 +21,10 @@ const Login=()=>{
   const options = {
                   method : 'POST',
                   credentials: "include",
+                  // credentials:'same-origin',
                   headers :{
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Access-Control-Allow-Origin':'*'
                   },
                   // mode:'no-cors',
                   body:JSON.stringify(form)

@@ -13,7 +13,8 @@ export function Authenticate() {
         credentials: "include",
         // credentials:'same-origin',
         headers :{
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin':'*'
         },
         // mode:'cors',
         // mode:'no-cors',
