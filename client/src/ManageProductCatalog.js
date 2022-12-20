@@ -1,10 +1,11 @@
 import logo from './logo.svg';
 import './App.css';
 import React, { useEffect, useState } from 'react';
+import {Link,useNavigate,useLocation} from 'react-router-dom';
 
 
+function AdminProductCatalog() {
 
-function ProductCatalog() {
 
 const [prodDetails, setProdDetails] = useState([])
 
@@ -16,6 +17,7 @@ useEffect(() => {
     // convert the data to json
     const json = await data.json();
 
+ 
     setProdDetails(json);
   }
 
@@ -25,14 +27,10 @@ useEffect(() => {
 
 
   return (
-    <>
-    <div className="ProdTitle">
-        <h1>Products</h1>
-    </div>
-    <div className="Search">
-       
-    </div>
-    <div className="Product">   
+    <div className="AdminProduct">
+
+        <br></br>
+         <div className="Product">   
          {prodDetails.length > 0 && (
         <div className="ProdRows">
           {prodDetails.map(proditem => (
@@ -49,9 +47,9 @@ useEffect(() => {
       )}
        </div>
  
-    
-  </>
+  
+    </div>
   );
 }
 
-export default ProductCatalog
+export default AdminProductCatalog

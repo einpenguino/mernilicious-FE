@@ -9,11 +9,10 @@ function Home() {
 
   return (
     <div className="Home">
-      <header className="Home-header">     
-       <NavBar/>
-       
+      <header className="Home-header"> 
+    
        <div>
-        <h1>Hi</h1>
+        <h1></h1>
        </div>
 
       </header>

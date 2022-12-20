@@ -5,6 +5,7 @@ const express = require("express");
 const cors = require ("cors");
 const cookieParser = require('cookie-parser')
 const jwt = require ("jsonwebtoken");
+const requireAuth = require ('./middleware/verifyAuth')
 
 const mongoose = require('mongoose')
 mongoose.set('strictQuery', true);
@@ -14,6 +15,9 @@ const Products = require('./models/Product');
 
 const UserCreds = require('./models/UserCred');
 
+const UserProfiles = require('./models/UserProfile');
+
+const SkinGoals = require('./models/SkinGoal_Profile');
 
 const app = express();
 const PORT = 5000;
@@ -32,7 +36,9 @@ const corsConfig = {
 
 app.use(cors(corsConfig))
 //To understand the incoming requests as JSON payloads we are using express.json() which is a built-in middleware function in Express.
-app.use(express.json());
+app.use(express.json({ limit: '50mb' }));
+
+app.use(express.urlencoded({ limit: '50mb', extended: true}));
 
 app.use(cookieParser())
 
@@ -48,9 +54,23 @@ app.get("/prod", async(req, res) => {
     }
 });
 
+
+//Create a GET route, for getting all the Active Ingredients
+app.get("/skinmap", async(req, res) => {
+    try{
+        const skinmap = await SkinGoals.distinct('ActiveIngredients');
+        res.json(skinmap);
+    }
+    catch(err){
+        res.json({message:err})
+    }
+});
+
+
 //Create a POST route, that create/upload new product into the DB
-app.post("/", async (req,res) => {
-   
+app.post("/", requireAuth, async (req,res) => {
+
+  
     const prod = new Products({
         Product_ID: req.body.p_id,
         Name: req.body.name,
@@ -61,6 +81,7 @@ app.post("/", async (req,res) => {
         Ingredients:req.body.ing,
         Active_Ingredients:req.body.act_ing,
         Prod_Image:req.body.img
+        
 
     });
 
@@ -68,8 +89,9 @@ app.post("/", async (req,res) => {
     const savedProd = await prod.save();
     res.json(savedProd);
     }
-    catch(err){
-        res.json({message:err})
+    catch(error){
+        res.status(400).send(error.message); 
+        console.log(error.message);   
     }
     console.log('I got a request')
     console.log(req.body)
@@ -112,8 +134,8 @@ app.post("/login", async (req,res) => {
             if (checkPassword){
                 // When both username and password matches , create a token and assign to the log in user
                 const token = jwt.sign({_id: checkUser._id}, process.env.TOKEN_SECRET);
-                res.cookie('jwt',token, {httpOnly: true , maxAge:60000});
-                res.json(checkUser._id)
+                res.cookie('jwt',token, {httpOnly: true , expiresIn: '24h'});
+                res.json([checkUser.Username, checkUser.Name])
             }
             else{
                 throw 'Password incorrect , try again'
@@ -134,9 +156,31 @@ app.post("/login", async (req,res) => {
 });
 
 
-// const requireAuth =(req,re,next){
-//     const
-// }
+
+//Create a POST route, to store user details on their skinprofile in the DB
+app.post("/skinsurvey",requireAuth, async (req,res) => {  
+    
+    const checkUser = await UserCreds.findOne({Username: req.body.username}).exec();
+    
+     const survey = new UserProfiles({
+        Username: checkUser._id,
+        SkinType: req.body.skintype,
+        Sensitivity: req.body.isSensitive,
+        SkinGoal: req.body.skingoal
+
+    });
+
+    try{
+    const savedUserSurvey = await survey.save();
+    res.json(savedUserSurvey);
+    }
+    catch(error){
+        res.status(400).json(error.message); 
+        console.log(error);     
+    }  
+    
+});
+
 
 
 

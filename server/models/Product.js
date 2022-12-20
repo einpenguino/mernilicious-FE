@@ -37,8 +37,7 @@ const productSchema = new Schema(
         },
 
         Prod_Image:{
-            data: Buffer,
-            contentType: String
+            type:String
         }
 
 

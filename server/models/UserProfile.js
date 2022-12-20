@@ -5,10 +5,10 @@ const Schema = mongoose.Schema;
 
 const userProfileSchema = new Schema(
     {
-        Username:[{
+        Username:{
             type:Schema.Types.ObjectID, 
-            ref:'UserCred'
-        }],
+            ref:'UserCreds'
+        },
 
         SkinType:{
             type:String, required:true, lowercase: true
@@ -34,5 +34,5 @@ const UserProfiles = mongoose.model("UserProfiles", userProfileSchema);
 
 
 
-module.exports = UserCreds;
+module.exports = UserProfiles;
 

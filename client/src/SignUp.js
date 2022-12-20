@@ -23,6 +23,7 @@ function SignUp() {
   //the post 
   const options = {
                   method : 'POST',
+                  credentials: "include",
                   headers :{
                     'Content-Type': 'application/json'
                   },
@@ -85,24 +86,7 @@ function SignUp() {
 
   return (
     <div className="Sign-Up">
-      <header className="Sign-Up"> 
-       
-      <ul>
-        <li>
-        <Link to="/">
-            Home
-        </Link>
 
-        </li>
-        <Link to="/Login">
-           Login
-        </Link>
-        <li>
-            
-        </li>
-       </ul>   
-
-       <div>
          <h1>Sign Up</h1>
         <form onSubmit={handleSubmit}>
           <label>Name:</label>
@@ -119,7 +103,7 @@ function SignUp() {
             <input 
              type="email"
              required
-             value = {username}
+             value = {username.toLowerCase()}
              placeholder = "Enter an email address"
              onChange = {(e) => setUsername(e.target.value)}
             />
@@ -147,9 +131,6 @@ function SignUp() {
           
           <input type="submit" value="Submit" />
         </form>
-       </div>
-
-      </header>
     </div>
   );
 }

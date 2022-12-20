@@ -1,42 +1,66 @@
 import logo from './logo.svg';
 import './App.css';
 import React, { useEffect, useState } from 'react';
-import {Link} from 'react-router-dom'
-import {useNavigate} from 'react-router-dom';
+import {Link,useNavigate,useLocation} from 'react-router-dom';
 
 
 function UserSkinGoal() {
+  
+   const name = sessionStorage.getItem("name");
+   const username = sessionStorage.getItem("username");
+  const navigate = useNavigate();
+
+  
 
   const [skintype, setSkinType] = useState('')
   const [isSensitive, setSensitivity] = useState('')
   const [skingoal, setSkinGoal] = useState('')
+ 
 
-  const form = {skintype , isSensitive, skingoal}
+  const form = {username, skintype , isSensitive, skingoal}
 
-   const navigate = useNavigate();
+
+
+ //the post 
+  const options = {
+                  method : 'POST',
+                  credentials: "include",
+                  headers :{
+                    'Content-Type': 'application/json'
+                  },
+                  body:JSON.stringify(form)
+                }
+
+//async function to sent login details and verify if account is in the DB
+    const postUserProfile = async () => {
+      const response = await fetch('http://localhost:5000/skinsurvey', options);
+      const data = await response.json()
+      try{ 
+      
+        alert ("Success")
+        navigate("/UserRegime")
+       
+      }
+      catch (error){
+        alert ("fail")
+       console.log(error.message)
+
+      } 
+    
+    }
 
     const handleSubmit = (e) =>{
     e.preventDefault();
-     navigate("/UserRegime")
-
-
-  }
+      postUserProfile()
+    }
+   
 
     return (
     <div className="UserSkinGoal">
-      <header className="UserSkinGoal"> 
-       
-      <ul>
-        <li>
-        <Link to="/">
-            Home
-        </Link>
-        </li>
-       </ul>   
-
        <div>
          <h1></h1>
         <form onSubmit={handleSubmit}>
+          <p>Hi {name}</p>
           <p>My Skin Type is :</p>
           
             <input 
@@ -88,8 +112,6 @@ function UserSkinGoal() {
             />
             <label>Yes</label>   
 
-               <br></br>
-
              <input 
              type="radio"
              checked={isSensitive === "false"}
@@ -124,8 +146,8 @@ function UserSkinGoal() {
 
              <input 
              type="radio"
-             checked={skingoal === "H"}
-             value = "H"
+             checked={skingoal === "HY"}
+             value = "HY"
              onChange = {(e) => setSkinGoal(e.target.value)}
             />
             <label>Hydration</label>   
@@ -145,8 +167,6 @@ function UserSkinGoal() {
           <input type="submit" value="Next" />
         </form>
        </div>
-
-      </header>
     </div>
   );
 }

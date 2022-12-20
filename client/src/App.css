@@ -1,38 +1,274 @@
-.App {
+* {
+  margin:0;
+  padding :0;
+  box-sizing: border-box;
+}
+
+a{
+  text-decoration: none;
+}
+.Nav{
+  display:flex;
+
+}
+
+.NavBar{
+  background-color: gray;
+  color:whitesmoke;
+  height:110vh;
+  position: absolute;
+}
+
+.top_section{
+  display:flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 15px;
+}
+
+.logo, .bars{
+  font-size: 20px;
+  line-height: 0;
+}
+
+.routes{
+  padding-top: 100%;
+}
+
+.link{
+      display: flex;
+      color:white;
+      padding-left: 30%;
+      padding-top: 15px;
+      padding-bottom: 15px;
+      border-right: 2px solid transparent;
+      transition: 0.2s cubic-bezier(0.6, -0.28, 0.735, 0.045);
+}
+
+.link:hover{
+  border-right: 2px solid white ;
+  transition: 0.2s cubic-bezier(0.6, -0.28, 0.735, 0.045);
+  background: rgb(29, 29, 29);
+  opacity: 0.3;
+  
+}
+
+
+.Login{
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  border-radius: 4px;
+  margin-left: 550px;
+  margin-top:200px;
+  
+}
+
+.ProdUpload {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  border-radius: 4px;
+  margin-left: 450px;
+  margin-top: -25px;
+
+}
+
+.LoginTitle {
+  padding: 10px;
+}
+
+.LoginForm, .ProdForm{
+  padding: 10px;
+}
+
+.ProdTitle{
+      margin-bottom: auto;
+      margin-left: 600px;
+      white-space: nowrap;
+      margin-top:30px
+}
+.AdminTitle{
+      padding: 10px 0px 5px 10px;
+      text-align: center;
+}
+
+.Product {
+   padding: 40px;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   margin-left: 200px;
+   
+  
+}
+
+.ProdRows{
+  display: grid;
+  grid-template-columns: repeat(4, 200px);
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap:50px;
+  
+}
+
+
+#tiles{
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  border-radius: 4px;
+  width: fit-content;
+  height: fit-content;
+}
+
+
+
+.userName{
+  padding:20px;
+  margin-left: 50px;
+}
+
+
+select {
+  width: 100%;
+  height: 45px;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: vertical;
+}
+
+
+input[type=text]
+ {
+  width: 100%;
+  height: 30px;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: vertical;
+}
+
+input[type=email]
+ {
+  width: 130%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: vertical;
+}
+
+input[type=password]
+ {
+  width: 130%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: vertical;
+}
+
+
+input[type=submit] {
+  background-color: #04AA6D;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  float: right;
+}
+
+textarea {
+  width: 130%;
+  height: 100px;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: vertical;
+}
+
+input[type=submit]:hover {
+  background-color: #45a049;
+}
+
+label {
+  padding: 5px 5px 0px 0px;
+  font-size: large;
+  display: inline-flex;
+  
+}
+
+#dd{
+  padding: 10px 5px 0px 0px;
+}
+
+.col-25 {
+  float: left;
+  width: 80%;
+  margin-top: 0px;
+
+}
+
+.col-75 {
+  float: left;
+  width: 75%;
+  margin-top: 6px;
+
+}
+
+.prodrow{
+  padding:10px;
+}
+
+.col-35 {
+  float: left;
+  width:180px
+
+}
+
+.col-65 {
+  float: left;
+
+}
+img {
+  width: 180px ;
+  height: 180px;
+  padding:10px
+}
+.iName{
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.iPrice {
+  text-align: center;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.signup-row {
+  font-size: small;
+}
+/* Clear floats after the columns */
+.row:after, .prodrow:after {
+  content: "";
+  display: table;
+  clear: both;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.AM, .PM{
+  display:flex;
+  flex-direction: row;
 }
 
-.App-link {
-  color: #61dafb;
+rect{
+  fill: black;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
+
+
+/* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 600px) {
+
+  .col-25,
+  .col-75,
+  .col-35,
+  .col-65,
+  input[type=submit] {
+    width: 100%;
+    margin-top: 0;
   }
 }

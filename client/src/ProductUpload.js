@@ -1,147 +1,312 @@
 import logo from './logo.svg';
 import './App.css';
-import React, { useEffect, useState } from 'react';
-import {Link} from 'react-router-dom';
-import {useNavigate} from 'react-router-dom';
+import React, { useEffect, useState, useCallback} from 'react';
+import {Link,useNavigate,useLocation} from 'react-router-dom';
+import {Multiselect} from 'multiselect-react-dropdown'
 
 function ProductUpload() {
+
+ const adminname = sessionStorage.getItem("name");
 
   const [p_id, setID] = useState('')
   const [name, setName] = useState('')
   const [price, setPrice] = useState('')
   const [prodtype, setProdtype] = useState('')
-  const [skintype, setSkintype] = useState('')
+  const [skintype, setSkintype] = useState([])
   const [desc, setDesc] = useState('')
   const [ing, setIng] = useState('')
   const [act_ing, setAct_ing] = useState('')
-  const [img, setImg] = useState('')
+  const [img, setImg] = useState("")
 
   const form = {p_id , name, price, prodtype, skintype, desc, ing, act_ing, img}
 
   const navigate = useNavigate();
 
-  const handleSubmit = (e) =>{
-    e.preventDefault();
+  const handleChange = (e) =>{
+    const value = e.target.value
+    const checked = e.target.checked
+    console.log(value,checked)
+    if (checked){
+      setSkintype([...skintype,value])
+    }
+    else{
+      setSkintype(skintype.filter( (e) => ( e !== value )))
+    }
+  }
 
-    console.log(form)
+  //Upload image 
+
+  const uploadImage = async(e) =>{
+    const file = e.target.files[0]
+    const base64 = await convertBase64(file)
+    setImg(base64)
     
-    //Posting the details to the sever
-    const options = {
-          method : 'POST',
-          headers :{
-            'Content-Type': 'application/json'
-          },
-          body:JSON.stringify(form)
+  }
+
+  const convertBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+        const fileReader = new FileReader()
+        fileReader.readAsDataURL(file)
+        fileReader.onload = ()=>{
+          resolve(fileReader.result)
+        };
+        fileReader.onerror = (error)=>{
+          reject(error)
         }
 
-    fetch('http://localhost:5000', options);
-     
-    //Navigating to ProductCatalog upon submiting 
-    navigate("/ProductCatalog")
+    })
+  }
+
+
+//   //Get Active Ingredients
+//  const [prodDetails, setProdDetails] = useState([])
+
+//   // declare the async data fetching function
+//   const fetchData = async () => {
+//     // get the data from the api
+//     const data = await fetch('http://localhost:5000/skinmap');
+//     // convert the data to json
+//     const json = await data.json();
+
+//     return json
+   
+//   }
+//    setProdDetails(fetchData());
+
+ 
+
+
+  //the post 
+  const options = {
+                  method : 'POST',
+                  credentials: "include",
+                  headers :{
+                    'Content-Type': 'application/json'
+                  },
+                  body:JSON.stringify(form)
+                }
+
+
+  //async function to post data to DB
+    const postProduct = async () => {
+      const response = await fetch('http://localhost:5000', options);
+     const data = await response.json();
+
+      try{ 
+      
+       
+       alert ('Success')
+      
+
+      
+
+      }
+      catch (error){
+        console.log(error.message)
+        alert ("Save unsuccessful")
+        
+
+      }
+
+      console.log(data)
     
+    }
+
+  const handleSubmit = (e) =>{
+    e.preventDefault();
+    postProduct()
+    setID('')
+  setName('')
+ setPrice('')
+  setProdtype('')
+ setSkintype([])
+  setDesc('')
+  setIng('')
+  setAct_ing('')
+  setImg("")
 
   }
 
 
-
-
- 
-
   return (
-    <div className="App">
-      <header className="App-header">
-
-        <Link to="/">
-            Home
-        </Link>
-
-        <h1>Admin Product upload</h1>
-        <form onSubmit={handleSubmit}>
-          <label>Product ID:</label>
-            <input 
-             type="text"
-             required
-             value = {p_id}
-             onChange = {(e) => setID(e.target.value)}
-            />
-           <br></br>
-
-          <label>Name: </label>
-          <input
-          type="text" 
-          required
-          value = {name}
-          onChange = {(e) => setName(e.target.value)}
-          />
-          <br></br>
-
-          <label>Price: </label>
-          <input
-          type="text" 
-          required
-          value = {price}
-          onChange = {(e) => setPrice(e.target.value)}
-          />
-          <br></br>
-
-          <label>Product Type: </label>
-          <input
-          type="text" 
-          required
-          value = {prodtype}
-          onChange = {(e) => setProdtype(e.target.value)}
-          />
-          <br></br>
-
-          <label>Best Suited for : </label>
-          <input
-          type="text" 
-          required
-          value = {skintype}
-          onChange = {(e) => setSkintype(e.target.value)}
-          />
-          <br></br>
-
-          <label>Description: </label>
-          <input
-          type="text" 
-          required
-          value = {desc}
-          onChange = {(e) => setDesc(e.target.value)}
-          />
-          <br></br>
-
-          <label>Ingredients: </label>
-          <input
-          type="text" 
-          required
-          value = {ing}
-          onChange = {(e) => setIng(e.target.value)}
-          />
-          <br></br>
-
-          <label> Active Ingredients: </label>
-          <input
-          type="text" 
-          required
-          value = {act_ing}
-          onChange = {(e) => setAct_ing(e.target.value)}
-          />
-          <br></br>
-
-          <label> Image: </label>
-          <input
-          type="text" 
-          required
-          value = {img}
-          onChange = {(e) => setImg(e.target.value)}
-          />
-          <br></br>
-          
-          <input type="submit" value="Submit" />
-        </form>
-      </header>
+    <>
+    <div className="userName">
+       <p>Hi {adminname}</p>
     </div>
+    <div className="ProdUpload">
+      <div className="AdminTitle">
+        <h1>Admin Product upload</h1>
+      </div>
+        <form className ="ProdForm" onSubmit={handleSubmit}>
+
+          <div className="prodrow">
+              <div className="col-35">
+                  <label>Product ID: </label>
+              </div>
+              <div className="col-65">
+                  <input 
+                  type="text"
+                  required
+                  value = {p_id}
+                  onChange = {(e) => setID(e.target.value)}
+                  />
+              </div>
+           </div>
+
+          <div className="prodrow">
+              <div className="col-35">
+                <label>Name: </label>
+              </div>
+            <div className="col-65">
+              <input
+              type="text" 
+              required
+              value = {name}
+              onChange = {(e) => setName(e.target.value)}
+              />
+            </div>
+          </div>
+
+
+          <div className="prodrow">
+              <div className="col-35">
+                <label>Price: </label>
+              </div>
+            <div className="col-65">
+              <input
+              type="text" 
+              required
+              value = {price}
+              onChange = {(e) => setPrice(e.target.value)}
+              />
+            </div>
+          </div>
+      
+          <div className="prodrow">
+              <div className="col-35">
+                 <label id="dd">Product Type: </label>
+              </div>
+              <div className="col-65">
+              <select value={prodtype} onChange = {(e) => setProdtype(e.target.value)} > 
+  
+              <option>--Select a Product Type--</option>
+              <option>Cleanser</option>
+              <option>Treatment</option>
+              <option>Moisturiser</option>
+              <option>Sunscreen</option>
+
+            </select>
+            </div>
+          </div>
+
+           <div className="prodrow">
+              <div className="col-35">
+                <label>Best Suited for: </label>
+              </div>
+            <div className="col-65">
+              <input
+              type="checkbox" 
+              value = "Dry"
+              onChange = {handleChange}
+              />&nbsp;
+              <label className="cl">Dry</label>&nbsp;&nbsp;
+
+              <input
+              type="checkbox" 
+              value = "Oily"
+              onChange = {handleChange}
+              />&nbsp;
+              <label className="cl">Oily</label>&nbsp;&nbsp;
+
+              <input
+              type="checkbox" 
+              value = "Combination"
+              onChange = {handleChange}
+              />&nbsp;
+              <label className="cl">Combination</label>&nbsp;&nbsp;
+
+              <input
+              type="checkbox" 
+              value = "Normal"
+              onChange = {handleChange}
+              />&nbsp;
+             <label className="cl">Normal</label>&nbsp;&nbsp;
+            </div>
+          </div>
+
+
+
+          <div className="prodrow">
+              <div className="col-35">
+                <label>Description: </label>
+              </div>
+            <div className="col-65">
+              <textarea
+              type="text" 
+              required
+              value = {desc}
+              onChange = {(e) => setDesc(e.target.value)}
+              />
+            </div>
+          </div>
+
+
+
+           <div className="prodrow">
+              <div className="col-35">
+                <label>Ingredients: </label>
+              </div>
+            <div className="col-65">
+              <textarea
+              type="text" 
+              required
+              value = {ing}
+              onChange = {(e) => setIng(e.target.value)}
+              />
+            </div>
+          </div>
+
+
+
+           <div className="prodrow">
+              <div className="col-35">
+                <label>Active Ingredients: </label>
+              </div>
+            <div className="col-65">
+                {/* <Multiselect options={prodDetails} displayValue={prodDetails}/> */}
+              <input
+              type="text" 
+              required
+              value = {act_ing}
+              onChange = {(e) => setAct_ing(e.target.value)}
+              />
+            </div>
+          </div>
+
+          <div className="prodrow">
+              <div className="col-35">
+                <label>Image: </label>
+              </div>
+            <div className="col-65">
+              <input
+              type="file" 
+              required
+              accept = ".jpeg, .png, .jpg"
+              onChange = {uploadImage}
+              />
+              
+            </div>
+          </div>
+        
+          <br></br>
+
+          <div className="prodrow">
+            <input type="submit" value="Submit" />
+          </div>
+
+        </form>
+    </div>
+  </>
   );
 }
 

@@ -1,10 +1,11 @@
 import logo from './logo.svg';
 import './App.css';
 import React, { useEffect, useState } from 'react';
-import {Link} from 'react-router-dom'
+import {Link, useLocation} from 'react-router-dom'
 import {useNavigate} from 'react-router-dom';
 
 function Login() {
+
 
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
@@ -12,6 +13,7 @@ function Login() {
   const form = {username , password}
 
   const navigate = useNavigate();
+
 
 //the post 
   const options = {
@@ -23,13 +25,12 @@ function Login() {
                   body:JSON.stringify(form)
                 }
 
-//async function to sent login details to DB
+//async function to sent login details and verify if account is in the DB
     const postUserLogin = async () => {
       const response = await fetch('http://localhost:5000/login', options);
-      try{ 
-        
       const data = await response.json()
-        console.log(data)
+  
+      try{ 
 
       if (data.includes("Email")){
         alert (data)
@@ -38,16 +39,28 @@ function Login() {
       else if(data.includes("Password")){
         alert (data)
       }
-
+      
       else{
-         navigate("/UserSkinGoal")
-      }
+        if (username === "admin@gmail.com"){
+          navigate("/AdminUpload")
+         
+        }
+        else{
 
+           navigate("/UserSkinGoal")
+           
+            
+         
       }
+            sessionStorage.setItem("username",username);
+           sessionStorage.setItem("name",data[1]);
+          return data
+      }
+    }
       catch (error){
        console.log(error.message)
 
-      }
+      } 
     
     }
 
@@ -56,52 +69,60 @@ function Login() {
 
   const handleSubmit = (e) =>{
     e.preventDefault();
-    setUsername('')
-    setPassword('')
     postUserLogin()
-  
-  
+ 
   }
-
-
 
  
 
   return (
-    <div className="App">
-      <header className="App-header">
+    <div className="Login">
+     
+        <h1 className="LoginTitle">Login</h1>
+        <form  className="LoginForm" onSubmit={handleSubmit}>
 
-        <Link to="/">
-            Home
-        </Link>
+          <div className="row">
+              <div className="col-25">
+                <label>Username: </label>
+              </div>
+            <div className="col-75">
+              <input 
+              type="email" 
+              required
+              value = {username.toLowerCase()}
+              onChange = {(e) => setUsername(e.target.value)}
+              />
+            </div>
+          </div>
 
-        <h1>Login</h1>
-        <form onSubmit={handleSubmit}>
-          <label>Username:</label>
-            <input 
-             type="text"
-             required
-             value = {username}
-             onChange = {(e) => setUsername(e.target.value)}
-            />
-           <br></br>
+           <div className="row">
+              <div className="col-25">
+                <label>Password: </label>
+              </div>
+            <div className="col-75">
+              <input
+              type="password" 
+              required
+              value = {password}
+              onChange = {(e) => setPassword(e.target.value)}
+              />
+            </div>
+          </div>
+        <div className="signup-row">
+            <p>Don't have an account?</p>
+            <Link to="/SignUp">
+                <p>Signup here</p>
+            </Link>
+        </div>
 
-          <label>Password: </label>
-          <input
-          type="password" 
-          required
-          value = {password}
-          onChange = {(e) => setPassword(e.target.value)}
-          />
-         <br></br>
-          <input type="submit" value="Submit" />
+           <div className="row">
+            <input type="submit" value="Submit" />
+          </div>
+
         </form>
-         
-         <Link to="/SignUp">
-            SignUp
-        </Link>
-        
-      </header>
+
+       
+  
     </div>
   );
 }
