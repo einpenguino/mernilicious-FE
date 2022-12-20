@@ -24,7 +24,7 @@ const Login=()=>{
                   // credentials:'same-origin',
                   headers :{
                     'Content-Type': 'application/json',
-                    'Access-Control-Allow-Origin':'*'
+                    // 'Access-Control-Allow-Origin':'*'
                   },
                   // mode:'no-cors',
                   body:JSON.stringify(form)
@@ -33,6 +33,7 @@ const Login=()=>{
   //async function to sent login details to DB
   const postUserLogin = async () => {
     const response = await fetch(`${process.env.REACT_APP_EXPRESS_URL}/login`, options);
+    // const response = await fetch(`http://localhost:3000/login`, options);
     // console.log(options.body)
     // console.log(response.headers)
     // console.log(cookies.value)

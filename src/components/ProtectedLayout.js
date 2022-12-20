@@ -1,12 +1,16 @@
-import { Navigate, useOutlet } from "react-router-dom";
-import { useAuth } from "../hooks/useAuth";
+import { Navigate, useOutlet, Outlet } from "react-router-dom";
+// import { useAuth } from "../hooks/useAuth";
 // import { AppBar } from "./AppBar";
 
 export const ProtectedLayout = () => {
-  const { user } = useAuth();
+  // const { user } = useAuth();
   const outlet = useOutlet();
+  let token = true;
 
-  if (!user) {
+  // if (!user) {
+  //   return <Navigate to="/" />;
+  // }
+  if (false) {
     return <Navigate to="/" />;
   }
 

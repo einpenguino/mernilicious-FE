@@ -15,6 +15,46 @@ import UserRegime from './components/UserRegime';
 import Dashboard from './components/dashboard';
 import { CookiesProvider } from 'react-cookie';
 import { ProtectedLayout } from './components/ProtectedLayout';
+import PrivateRoutes from './components/ProtectLayer';
+// import {Store, Provider } from 'redux'
+
+// const router = createBrowserRouter([
+//   {
+//     path:'/',
+//     element:<Home />,
+//     errorElement:<ErrorPage />
+//   },
+//   {
+//     path: '/login',
+//     element:<Login/>
+//   },
+//   {
+//     path:'/adminupload',
+//     element:<ProductUpload/>
+//   },
+//   {
+//     path:'/signup',
+//     element:<SignUp/>
+//   },
+//   {
+//     path:'/products',
+//     element:<ProductCatalog/>
+//   },
+//   {
+//     path:'/skingoal',
+//     element:<UserSkinGoal/>
+//   },
+//   {
+//     path:'/userregime',
+//     element:<UserRegime/>
+//   },
+//   {
+//     path:'/dashboard',
+//     // element:<ProtectedLayout><Dashboard/></ProtectedLayout>
+//     element:<PrivateRoutes/>,
+//     children:[{element:<Dashboard/>}]
+//   }
+// ])
 
 const router = createBrowserRouter([
   {
@@ -46,9 +86,17 @@ const router = createBrowserRouter([
     path:'/userregime',
     element:<UserRegime/>
   },
+  // {
+  //   path:'/dashboard',
+  //   // element:<ProtectedLayout><Dashboard/></ProtectedLayout>
+  //   element:<PrivateRoutes/>,
+  //   children:[{element:<Dashboard/>}]
+  // },
   {
     path:'/dashboard',
     element:<ProtectedLayout><Dashboard/></ProtectedLayout>
+    // element:<PrivateRoutes/>,
+    // children:[{element:<Dashboard/>}]
   }
 ])
 
@@ -60,9 +108,12 @@ root.render(
   //   </BrowserRouter>
   // </React.StrictMode>
   // <React.StrictMode>
+  // <Provider>
     <CookiesProvider>
-    <RouterProvider router={router} />
-  </CookiesProvider>
+      <RouterProvider router={router} />
+    </CookiesProvider>
+  // </Provider>
+    
   // </React.StrictMode>
 );
 

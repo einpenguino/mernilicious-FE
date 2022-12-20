@@ -10,9 +10,10 @@ export default function Dashboard() {
       {/* <header className="Home-header">     
        <NavBar/>
       </header> */}
-      <h1 id='title-dashboard'>
+      {/* <h1 id='title-dashboard'>
         Hi This is the Dashboard
-      </h1>
+      </h1> */}
+      <h1>Dashboard</h1>
     </div>
   );
 }

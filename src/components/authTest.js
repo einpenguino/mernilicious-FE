@@ -14,11 +14,11 @@ export function Authenticate() {
         // credentials:'same-origin',
         headers :{
           'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin':'*'
-        },
+          // 'Access-Control-Allow-Origin':'*'
+        }
         // mode:'cors',
         // mode:'no-cors',
-        body:JSON.stringify(document.cookie)
+        // body:JSON.stringify(document.cookie)
         // body:document.cookie
     }
     const handleSubmit = async () => {
