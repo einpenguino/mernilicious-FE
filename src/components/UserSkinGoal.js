@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import {Link} from 'react-router-dom'
 import {useNavigate} from 'react-router-dom';
+import { Authenticate } from './authTest';
 
 
 function UserSkinGoal() {
@@ -30,7 +31,8 @@ function UserSkinGoal() {
             Home
         </Link>
         </li>
-       </ul>   
+       </ul>  
+       <Authenticate></Authenticate>
 
        <div>
          <h1></h1>

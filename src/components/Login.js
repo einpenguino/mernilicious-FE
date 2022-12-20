@@ -4,14 +4,15 @@ import { Link, useNavigate } from 'react-router-dom'
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
-import { useCookies } from 'react-cookie'
+import { Authenticate } from './authTest';
+// import { useCookies } from 'react-cookie'
 // import Cookies from 'js-cookie'
 
 const Login=()=>{
   
   const [userName, setUsername] = useState('')
   const [password, setPassword] = useState('')
-  const [cookies, setCookie, removeCookie] = useCookies(['alabaster']);
+  // const [cookies, setCookie, removeCookie] = useCookies(['alabaster']);
 
   const form = {userName , password}
   const navigate = useNavigate();
@@ -23,6 +24,7 @@ const Login=()=>{
                   headers :{
                     'Content-Type': 'application/json'
                   },
+                  // mode:'no-cors',
                   body:JSON.stringify(form)
                 }
 
@@ -30,8 +32,9 @@ const Login=()=>{
   const postUserLogin = async () => {
     const response = await fetch(`${process.env.REACT_APP_EXPRESS_URL}/login`, options);
     // console.log(options.body)
-    // console.log(response.status)
-    console.log(cookies.value)
+    // console.log(response.headers)
+    // console.log(cookies.value)
+    console.log(`login cookie FE : ${document.cookie.split('=')[1]}`)
     try{ 
       if (response.status === 200){
         navigate("/skingoal")
@@ -108,6 +111,7 @@ const Login=()=>{
                         Sign Up 
                 </Link>
                 </Typography>
+                {/* <Authenticate/> */}
             </Paper>
         </Grid>
     )
