@@ -152,6 +152,7 @@
 //     </div>
 //   );
 // }
+// export default SignUp
 
 // import * as React from 'react';
 import Avatar from '@mui/material/Avatar';
@@ -160,7 +161,6 @@ import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
-// import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
@@ -189,16 +189,17 @@ const theme = createTheme();
 export default function SignUp() {
   const [name, setName] = useState('')
   const [username, setUsername] = useState('')
+  const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [confirmpassword, setConfirmPassword] = useState('')
-  const form = {name , username , password, confirmpassword }
+  // const [confirmpassword, setConfirmPassword] = useState('')
+  const form = {name , username , email, password }
   const navigate = useNavigate();
    
   //regex to confim if email address is valid & password requirement
   // let regexUsername = new RegExp("([!#-'*+/-9=?A-Z^-~-]+(\.[!#-'*+/-9=?A-Z^-~-]+)*|\"\(\[\]!#-[^-~ \t]|(\\[\t -~]))+\")@([!#-'*+/-9=?A-Z^-~-]+(\.[!#-'*+/-9=?A-Z^-~-]+)*|\[[\t -Z^-~]*])");
   // let regexPassword = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})");
-  let regexUsername = new RegExp("");
-  let regexPassword = new RegExp("");
+  // let regexUsername = new RegExp(".");
+  // let regexPassword = new RegExp(".");
 
   //the post 
   const options = {
@@ -211,52 +212,50 @@ export default function SignUp() {
 
   //async function to post data to DB
   const postUser = async () => {
-    const response = await fetch(`${process.env.REACT_APP_EXPRESS_URL}/userCred`, options);
-    try{ 
-    
-    const data = await response.json();
-      
-      alert ('Success')
-
-    console.log(data)
-
-    }
-    catch (error){
-      console.log(error)
-      alert ("Username exists pls Sign in")
-
-    }
+    const response = await fetch(`${process.env.REACT_APP_EXPRESS_URL}/signup`, options);
+    // const response = await fetch(`${process.env.REACT_APP_EXPRESS_URL}/userCred`, options);
+    if (await response.status == 200){
+      try{ 
+        const data = await response.json();
+        alert ("Sign Up Failed")
+        navigate('/login')
+      }
+      catch (e){
+        console.log(e)
+        alert ("Sign Up Failed")
   
+      }
+    }
   }
 
   const handleSubmit = (e) =>{
     e.preventDefault();
-    console.log(regexUsername.test(username))
-    console.log(regexPassword.test(password))
-    if (regexUsername.test(username)){
-        if(regexPassword.test(password)){
-           if (password === confirmpassword){
-               postUser()
-               navigate("/login")
+    console.log(form)
+    postUser()
+    // if (regexUsername.test(username)){
+    //     if(regexPassword.test(password)){
+    //        if (password === confirmpassword){
+    //            postUser()
+    //            navigate("/Login")
               
-           }
-           else{
-            alert ("Password & Confirm Password doesn't meet")
-            setPassword('')
-            setConfirmPassword('')
-           }
-        }
-        else{
-          alert ("Password entered doesn't meet the requirement");  
-          setPassword('')
-          setConfirmPassword('')
-        }
-    }
-    else{
-          alert ("Email entered is invalid");  
-          setUsername('')
+    //        }
+    //        else{
+    //         alert ("Password & Confirm Password doesn't meet")
+    //         setPassword('')
+    //         setConfirmPassword('')
+    //        }
+    //     }
+    //     else{
+    //       alert ("Password entered doesn't meet the requirement");  
+    //       setPassword('')
+    //       setConfirmPassword('')
+    //     }
+    // }
+    // else{
+    //       alert ("Email entered is invalid");  
+    //       setUsername('')
           
-    }
+    // }
 
 
   }
@@ -268,7 +267,7 @@ export default function SignUp() {
   //     password: data.get('password'),
   //   });
   // };
-
+  // useEffect(() => {console.log(form)}, form)
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
@@ -289,46 +288,50 @@ export default function SignUp() {
           </Typography>
           <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
-              {/* <Grid item xs={12} sm={6}>
+              <Grid item xs={12}>
                 <TextField
-                  autoComplete="given-name"
-                  name="firstName"
+                  // autoComplete="given-name"
+                  // name="firstName"
                   required
                   fullWidth
-                  id="firstName"
-                  label="First Name"
+                  id="name-signup"
+                  label="Name"
                   autoFocus
+                  onChange = {(e) => {setName(e.target.value)}}
                 />
               </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  required
-                  fullWidth
-                  id="lastName"
-                  label="Last Name"
-                  name="lastName"
-                  autoComplete="family-name"
-                />
-              </Grid> */}
               <Grid item xs={12}>
                 <TextField
                   required
                   fullWidth
-                  id="email"
+                  id="username-signup"
+                  label="Username"
+                  // name="lastName"
+                  // autoComplete="family-name"
+                  onChange = {(e) => {setUsername(e.target.value)}}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  id="email-signup"
                   label="Email Address"
-                  name="email"
-                  autoComplete="email"
+                  // name="email"
+                  // autoComplete="email"
+                  onChange = {(e) => {setEmail(e.target.value)}}
                 />
               </Grid>
               <Grid item xs={12}>
                 <TextField
                   required
                   fullWidth
-                  name="password"
+                  // name="password"
                   label="Password"
                   type="password"
                   id="password"
-                  autoComplete="new-password"
+                  // autoComplete="new-password"
+                  onChange = {(e) => {setPassword(e.target.value)}}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -349,7 +352,7 @@ export default function SignUp() {
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link to='/login' variant="body2">
+                <Link href="#" variant="body2">
                   Already have an account? Sign in
                 </Link>
               </Grid>
