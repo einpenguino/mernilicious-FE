@@ -71,7 +71,7 @@ const router = createBrowserRouter([
   },
   {
     path:'/adminupload',
-    element:<ProductUpload/>
+    element:<PrivateRoute><ProductUpload/></PrivateRoute>
   },
   {
     path:'/signup',
@@ -83,11 +83,11 @@ const router = createBrowserRouter([
   },
   {
     path:'/skingoal',
-    element:<UserSkinGoal/>
+    element:<PrivateRoute><UserSkinGoal/></PrivateRoute>
   },
   {
     path:'/userregime',
-    element:<UserRegime/>
+    element:<PrivateRoute><UserRegime/></PrivateRoute>
   },
   // {
   //   path:'/dashboard',

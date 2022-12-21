@@ -7,9 +7,9 @@ export default function Dashboard() {
 
   return (
     <div className="Dashboard">
-      {/* <header className="Home-header">     
+      <header className="Home-header">     
        <NavBar/>
-      </header> */}
+      </header>
       {/* <h1 id='title-dashboard'>
         Hi This is the Dashboard
       </h1> */}

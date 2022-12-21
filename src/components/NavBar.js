@@ -1,18 +1,44 @@
 import React, { useEffect, useState } from 'react';
-import {Link} from 'react-router-dom'
+import { useSelector, useDispatch } from 'react-redux';
+// import {logout} from '../store/features/isAuth'
+import Logout from './Logout';
+import { Link, Navigate, NavLink } from 'react-router-dom'
 
 function NavBar() {
+  // let isAdmin
+  const auth = useSelector(state => state.auth.value)
+  const isAdmin = useSelector(state => state.isadmin.value)
+
+  const dispatch = useDispatch()
+  // const localLogout = dispatch(logout)
   return (
     <div className="Nav">
       <header className="Nav-header">
         <Link to="/">
             Home
         </Link>
-
-        <Link to="/login">
-            Login
-        </Link>
-
+        {auth ? 
+        // <NavLink to="/dashboard" onClick={Logout}>
+        //   Profile
+        // </NavLink>
+        <NavLink to="/" onClick={Logout}>
+          Logout
+        </NavLink>
+        : 
+        <NavLink to="/login">
+          Login
+        </NavLink>}
+        <NavLink to="/products">
+          Products
+        </NavLink>
+        {
+          isAdmin ?
+          <NavLink to='/adminupload'>
+            Admin Upload
+          </NavLink>
+          :
+          null
+        }
       </header>
     </div>
   );
