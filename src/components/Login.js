@@ -5,17 +5,20 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import { Authenticate } from './authTest';
-// import { useCookies } from 'react-cookie'
+import { useSelector, useDispatch } from 'react-redux'
+import { login, logout } from '../store/features/isAuth'
 // import Cookies from 'js-cookie'
+// import {useCookies} from 'react-cookie'
 
 const Login=()=>{
   
   const [userName, setUsername] = useState('')
   const [password, setPassword] = useState('')
   // const [cookies, setCookie, removeCookie] = useCookies(['alabaster']);
-
+  const dispatch = useDispatch()
   const form = {userName , password}
   const navigate = useNavigate();
+  // const [cookies] = useCookies(['alabaster'])
 
   //the post 
   const options = {
@@ -38,15 +41,26 @@ const Login=()=>{
     // console.log(response.headers)
     // console.log(cookies.value)
     console.log(`login cookie FE : ${document.cookie.split('=')[1]}`)
-    try{ 
+    // const json = await response.body
+    const json = await response.json()
+    console.log(json)
+    try{
       if (response.status === 200){
-        navigate("/skingoal")
-      }
-      else{
-        // POP LOGIN FAILED
+        if (!json.skinGoal){
+          dispatch(login())
+          // console.log(useSelector((state) => state.auth.value))
+          navigate("/skingoal")
+        }
+        else if (json.skinGoal){
+          dispatch(login())
+          navigate("/profile")
+        }
+      }else{
+        // dispatch(logout())
+          // POP LOGIN FAILED
       }
     }catch (error){
-    
+      // dispatch(logout())
       console.log(error.message)
 
     }

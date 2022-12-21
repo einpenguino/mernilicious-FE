@@ -4,7 +4,8 @@ import NavBar from './NavBar';
 import Button from '@mui/material/Button';
 import { ContactPageSharp } from '@mui/icons-material';
 import { Link, useNavigate } from 'react-router-dom'
-
+import { useAuth } from '../hooks/isAuth'
+import {cookies} from 'react-cookie'
 
 export function Authenticate() {
     const navigate = useNavigate();
@@ -28,8 +29,9 @@ export function Authenticate() {
         }else{
         console.log(options)
         const response = await fetch(`${process.env.REACT_APP_EXPRESS_URL}/auth`, options)
-        console.log(response)
+        console.log(await response.json())
         }
+        // console.log(await useAuth())
     }catch(e){
         console.log(e)
     }

@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { createBrowserRouter, RouterProvider, Route } from 'react-router-dom';
+import { createBrowserRouter, RouterProvider, Route, Await } from 'react-router-dom';
 import Home from './components/Home';
 import ErrorPage from './routes/ErrorPage'
 import ProductUpload from './components/ProductUpload';
@@ -16,7 +16,10 @@ import Dashboard from './components/dashboard';
 import { CookiesProvider } from 'react-cookie';
 import { ProtectedLayout } from './components/ProtectedLayout';
 import PrivateRoutes from './components/ProtectLayer';
-// import {Store, Provider } from 'redux'
+import { PrivateRoute } from './components/PrivateRoute';
+import store from './store/store'
+import { Provider } from 'react-redux'
+import {isAuth} from './components/auth'
 
 // const router = createBrowserRouter([
 //   {
@@ -94,8 +97,8 @@ const router = createBrowserRouter([
   // },
   {
     path:'/dashboard',
-    element:<ProtectedLayout><Dashboard/></ProtectedLayout>
-    // element:<PrivateRoutes/>,
+    // element:<ProtectedLayout><Dashboard/></ProtectedLayout>
+    element:<React.Suspense><Await resolve = {isAuth()} children = {<PrivateRoute><Dashboard/></PrivateRoute>}/></React.Suspense>,
     // children:[{element:<Dashboard/>}]
   }
 ])
@@ -107,12 +110,22 @@ root.render(
   //     <App/>
   //   </BrowserRouter>
   // </React.StrictMode>
+
   // <React.StrictMode>
-  // <Provider>
+  <Provider store = {store}>
     <CookiesProvider>
       <RouterProvider router={router} />
     </CookiesProvider>
-  // </Provider>
+  </Provider>
+
+  // <CookiesProvider>
+  //   <Routes>
+  //     <Route index element = {<Home/>} />
+  //     <Route path='/' element = {<Home/>} />
+  //     <Route
+  //       path = "/dashboard"
+  //   </Routes>
+  // </CookiesProvider>
     
   // </React.StrictMode>
 );
