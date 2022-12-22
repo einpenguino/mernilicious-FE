@@ -15,13 +15,17 @@ function ProductUpload() {
   const [skintype, setSkintype] = useState([])
   const [desc, setDesc] = useState('')
   const [ing, setIng] = useState('')
-  const [act_ing, setAct_ing] = useState('')
+  const [optAct, setOptAct] = useState([])
+  const [act_ing, setAct_ing] = useState([])
   const [img, setImg] = useState("")
+
+   
 
   const form = {p_id , name, price, prodtype, skintype, desc, ing, act_ing, img}
 
   const navigate = useNavigate();
 
+  //for checkbox
   const handleChange = (e) =>{
     const value = e.target.value
     const checked = e.target.checked
@@ -33,6 +37,7 @@ function ProductUpload() {
       setSkintype(skintype.filter( (e) => ( e !== value )))
     }
   }
+
 
   //Upload image 
 
@@ -58,22 +63,26 @@ function ProductUpload() {
   }
 
 
-//   //Get Active Ingredients
-//  const [prodDetails, setProdDetails] = useState([])
 
-//   // declare the async data fetching function
-//   const fetchData = async () => {
-//     // get the data from the api
-//     const data = await fetch('http://localhost:5000/skinmap');
-//     // convert the data to json
-//     const json = await data.json();
+//Get Active Ingredients
+useEffect(() => {
 
-//     return json
-   
-//   }
-//    setProdDetails(fetchData());
 
- 
+  // declare the async data fetching function
+  const fetchData = async () => {
+    // get the data from the api
+    const data = await fetch('http://localhost:5000/skinmap');
+    // convert the data to json
+    const json = await data.json();
+
+    setOptAct(json)
+  
+  }
+
+  fetchData()
+
+},[])
+
 
 
   //the post 
@@ -90,40 +99,30 @@ function ProductUpload() {
   //async function to post data to DB
     const postProduct = async () => {
       const response = await fetch('http://localhost:5000', options);
-     const data = await response.json();
-
-      try{ 
+      const data = await response.json();
+      try{  
       
+       alert ("Save successful")
+        console.log(data) 
+         window.location.reload();
        
-       alert ('Success')
-      
-
-      
-
       }
       catch (error){
-        console.log(error.message)
         alert ("Save unsuccessful")
+        console.log(error.message)
         
-
       }
-
-      console.log(data)
-    
+      
     }
 
   const handleSubmit = (e) =>{
     e.preventDefault();
     postProduct()
-    setID('')
-  setName('')
- setPrice('')
-  setProdtype('')
- setSkintype([])
-  setDesc('')
-  setIng('')
-  setAct_ing('')
-  setImg("")
+  
+  
+   
+    
+    
 
   }
 
@@ -273,13 +272,13 @@ function ProductUpload() {
                 <label>Active Ingredients: </label>
               </div>
             <div className="col-65">
-                {/* <Multiselect options={prodDetails} displayValue={prodDetails}/> */}
-              <input
-              type="text" 
-              required
-              value = {act_ing}
-              onChange = {(e) => setAct_ing(e.target.value)}
-              />
+                <Multiselect 
+                isObject = {false}
+                options={optAct}
+                onRemove={setAct_ing}
+                onSelect={setAct_ing}
+                showCheckbox
+                />
             </div>
           </div>
 

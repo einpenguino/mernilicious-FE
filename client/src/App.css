@@ -2,11 +2,30 @@
   margin:0;
   padding :0;
   box-sizing: border-box;
+
 }
 
 a{
   text-decoration: none;
 }
+
+ul {
+  list-style-type: none;
+}
+
+ul li {
+  float: left;
+  padding: 5px;
+  display: block;
+}
+
+
+.Pagination{
+  margin-left: 700px;
+  margin-bottom:-25px;
+}
+
+
 .Nav{
   display:flex;
 
@@ -15,7 +34,7 @@ a{
 .NavBar{
   background-color: gray;
   color:whitesmoke;
-  height:110vh;
+  height:100%;
   position: absolute;
 }
 
@@ -57,7 +76,7 @@ a{
 .Login{
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   border-radius: 4px;
-  margin-left: 550px;
+  margin-left: 600px;
   margin-top:200px;
   
 }
@@ -73,21 +92,58 @@ a{
 .LoginTitle {
   padding: 10px;
 }
+.SignUpTitle{
+  margin-left:700px;
+  margin-top:30px;
+}
 
 .LoginForm, .ProdForm{
   padding: 10px;
+}
+
+
+
+.SkinForm,.SignUpForm{
+  padding: 10px;
+  margin-left:600px
+}
+
+.SkinType,.Sensitivity,.SkinGoal{
+  padding:30px;
 }
 
 .ProdTitle{
       margin-bottom: auto;
       margin-left: 600px;
       white-space: nowrap;
-      margin-top:30px
+      margin-top:20px
 }
 .AdminTitle{
       padding: 10px 0px 5px 10px;
       text-align: center;
 }
+.SkinSurvey {
+  padding: 10px 0px 5px 10px;
+  text-align: center;
+  margin-left: 370px;
+  margin-top: 65px;
+  }
+
+  .rl{
+    margin-left:26px;
+  
+  }
+  .r_ST{
+    margin-left:-50px;
+  }
+
+  .r_S {
+      margin-left: 53px;
+  }
+
+  .r_SG {
+    margin-left: -200px;
+  }
 
 .Product {
    padding: 40px;
@@ -135,9 +191,9 @@ select {
 }
 
 
-input[type=text]
+input[type=text],input[type=email],input[type=password]
  {
-  width: 100%;
+  width: 130%;
   height: 30px;
   padding: 12px;
   border: 1px solid #ccc;
@@ -145,23 +201,6 @@ input[type=text]
   resize: vertical;
 }
 
-input[type=email]
- {
-  width: 130%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  resize: vertical;
-}
-
-input[type=password]
- {
-  width: 130%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  resize: vertical;
-}
 
 
 input[type=submit] {
@@ -237,6 +276,29 @@ img {
 
 .iPrice {
   text-align: center;
+}
+
+.signrow {
+  padding: 20px;
+}
+
+.col-15 {
+  float: left;
+  width: 80%;
+  margin-top: 0px;
+
+}
+
+.col-45 {
+  float: left;
+  width: 75%;
+  margin-top: 6px;
+
+}
+
+.SignButton{
+  margin-top: 30px;
+   margin-right: 30px;
 }
 
 .signup-row {

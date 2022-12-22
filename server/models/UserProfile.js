@@ -11,7 +11,7 @@ const userProfileSchema = new Schema(
         },
 
         SkinType:{
-            type:String, required:true, lowercase: true
+            type:String, required:true
         },
 
         Sensitivity:{

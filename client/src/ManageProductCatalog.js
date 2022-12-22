@@ -8,6 +8,7 @@ function AdminProductCatalog() {
 
 
 const [prodDetails, setProdDetails] = useState([])
+const [isChecked, setIsChecked] = useState([])
 
 useEffect(() => {
   // declare the async data fetching function
@@ -25,26 +26,72 @@ useEffect(() => {
 
 },[])
 
+const handleCheckBox = (e) =>{
+    const {value,checked} =e.target;
+    console.log(value,checked)
+    if(checked){
+        setIsChecked([...isChecked,value])
+    }
+    else{
+      setIsChecked(isChecked.filter((e)=>e!==value));
+    }
+}
+
+const allDelete = async () => {
+    const data = await fetch('http://localhost:5000/prod', {
+      method: "DELETE",
+      body: JSON.stringify(isChecked),
+       credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const json = await data.json();
+    console.log(json)
+    window.location.reload();
+  };
+
+
 
   return (
     <div className="AdminProduct">
 
-        <br></br>
+        <h1>Manage Product Catalog</h1>
          <div className="Product">   
-         {prodDetails.length > 0 && (
-        <div className="ProdRows">
-          {prodDetails.map(proditem => (
-            <div key={proditem.Product_ID} className={proditem.Name} id="tiles">
-              <div className="iImg"> 
-              <img src={proditem.Prod_Image} alt={proditem.Name}/>
-              </div>
-              <div className="iName"> <p>{proditem.Name}</p></div>
-              <div className="iPrice"> <p>{proditem.Price}</p></div>
-            </div>
-          ))}
-          </div>
-       
-      )}
+
+        <button className="DeleteBtn" onClick={allDelete} >Delete</button>
+
+        <table className="mainTable">
+          <thead>
+            <tr>
+              <th scope = "col">#</th>
+              <th scope = "col">No.</th>
+              <th scope = "col">Prod ID</th>
+              <th scope = "col">Prod Type</th>
+              <th scope = "col">Name</th>
+              <th scope = "col">Price</th>
+              <th scope = "col">Description</th>
+              <th scope = "col">Active Ingredients</th>
+            </tr>
+          </thead>
+
+ 
+          <tbody>
+            {prodDetails.map((proditem, index)=>(
+            <tr key={index}>
+              <td><input type="checkbox" value={proditem._id} checked={proditem.isChecked} onChange={(e)=>handleCheckBox(e)}/></td>
+              <th scope="row">{index + 1}</th>
+              <td>{proditem.Product_ID}</td>
+              <td>{proditem.Product_Type}</td>
+              <td>{proditem.Name}</td>
+              <td>{proditem.Price}</td>
+              <td>{proditem.Description}</td>
+              <td>{proditem.Active_Ingredients}</td>  
+            </tr>
+              ))}
+          </tbody>
+
+        </table>
        </div>
  
   

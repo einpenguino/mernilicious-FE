@@ -6,31 +6,30 @@ import {Link,useNavigate,useLocation} from 'react-router-dom';
 
 function UserRegime() {
 
- const location= useLocation();
-  const navigate = useNavigate();
-
+ const name = sessionStorage.getItem("name");
+ const username = sessionStorage.getItem("username");
 
 
 
 return (
-    <div className="UserSkinRegime">
-      <header className="UserSkinRegime"> 
-       
-      <ul>
-        <li>
-        <Link to="/">
-            Home
-        </Link>
-        </li>
-       </ul>   
 
-       <div>
-         <h1></h1>
-        <form >
-          <p>Hi</p>
-          <h3>AM Routine</h3>
+      <>
+      <div className="userName">
+        <p>Hi {name}</p>
+    </div>
+
+    <div className="UserSkinRegime">
+        <h1 className="SkinRegimeTitle">Curate your Regime</h1>
+    </div>
+      
+    <div className="UserSkinRegime">
+        <h1 className="Recommendation"></h1>
+    </div>
 
         <div className ='AM'>
+            <div className="UserSkinRegime">
+                <h1 className="AM_Regime">AM</h1>
+            </div>
           <div className='AM_C'>
             <svg width="200" height="180">
                 <rect x="50" y="20" rx="20" ry="20" width="150" height="150"/>
@@ -57,9 +56,11 @@ return (
 
         </div>
              
-          <h3>PM Routine</h3>
 
            <div className ='PM'>
+             <div className="UserSkinRegime">
+                <h1 className="PM_Regime">PM</h1>
+            </div>
           <div className='PM_C'>
             <svg width="200" height="180">
                 <rect x="50" y="20" rx="20" ry="20" width="150" height="150"/>
@@ -86,11 +87,7 @@ return (
 
         </div>
 
-        </form>
-       </div>
-
-      </header>
-    </div>
+        </>
   );
 }
 

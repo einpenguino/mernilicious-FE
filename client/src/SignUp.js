@@ -85,11 +85,17 @@ function SignUp() {
 
 
   return (
-    <div className="Sign-Up">
+    
+      <>
+      <div className="SignUp">
+        <h1 className="SignUpTitle">Sign Up</h1>
+        <form className="SignUpForm" onSubmit={handleSubmit}>
 
-         <h1>Sign Up</h1>
-        <form onSubmit={handleSubmit}>
-          <label>Name:</label>
+          <div className="signrow">
+            <div className="col-15">
+              <label>Name:</label>
+            </div>
+            <div className="col-45">
             <input 
              type="text"
              required
@@ -97,9 +103,15 @@ function SignUp() {
              placeholder = "Enter your name"
              onChange = {(e) => setName(e.target.value)}
             />
-           <br></br>
+            </div>
+          </div>
 
-          <label>Username:</label>
+
+          <div className="signrow">
+            <div className="col-15">
+              <label>Username:</label>
+            </div>
+            <div className="col-45"> 
             <input 
              type="email"
              required
@@ -107,31 +119,45 @@ function SignUp() {
              placeholder = "Enter an email address"
              onChange = {(e) => setUsername(e.target.value)}
             />
-           <br></br>
+          </div>
+        </div>
 
-          <label>Password: </label>
-          <input
-          type="password" 
-          required
-          value = {password}
-          placeholder = "Password"
-          onChange = {(e) => setPassword(e.target.value)}
-          />
-         <br></br>
+          <div className="signrow">
+            <div className="col-15">
+              <label>Password: </label>
+            </div>
+            <div className="col-45">
+              <input
+              type="password" 
+              required
+              value = {password}
+              placeholder = "Password"
+              onChange = {(e) => setPassword(e.target.value)}
+              />
+            </div>
+         </div>
 
-         <label>Confirm Password: </label>
-          <input
-          type="password" 
-          required
-          value = {confirmpassword}
-          placeholder = "Confirm Password"
-          onChange = {(e) => setConfirmPassword(e.target.value)}
-          />
-         <br></br>
+         
+        <div className="signrow">
+          <div className="col-15">
+               <label>Confirm Password: </label>
+          </div>
+          <div className="col-45">
+            <input
+            type="password" 
+            required
+            value = {confirmpassword}
+            placeholder = "Confirm Password"
+            onChange = {(e) => setConfirmPassword(e.target.value)}
+            />
+         </div>
+         </div>
           
-          <input type="submit" value="Submit" />
+          <input className="SignButton" type="submit" value="Submit" />
+      
         </form>
-    </div>
+        </div>
+    </>
   );
 }
 

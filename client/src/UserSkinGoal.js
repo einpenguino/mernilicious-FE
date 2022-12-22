@@ -39,6 +39,7 @@ function UserSkinGoal() {
       
         alert ("Success")
         navigate("/UserRegime")
+        console.log(data)
        
       }
       catch (error){
@@ -51,123 +52,154 @@ function UserSkinGoal() {
 
     const handleSubmit = (e) =>{
     e.preventDefault();
-      postUserProfile()
+    if (skintype){
+        if(isSensitive){
+          if(skingoal){
+              postUserProfile()
+          }
+          else{
+            alert("Skin Goal not Selected")
+          }
+        }
+        else{
+          alert("Sensitivity not Selected")
+        }
+    }
+
+    else{
+     alert("Skin Type not Selected")
+    }
+      
     }
    
 
     return (
+      <>
+      <div className="userName">
+        <p>Hi {name}</p>
+    </div>
+    <div className="SkinSurvey">
+        <h1>Know Your Skin</h1>
+      </div>
     <div className="UserSkinGoal">
-       <div>
-         <h1></h1>
-        <form onSubmit={handleSubmit}>
-          <p>Hi {name}</p>
-          <p>My Skin Type is :</p>
-          
-            <input 
+        <form className ="SkinForm" onSubmit={handleSubmit}>
+         <div className ="SkinType">
+          <h3 className="rl">My Skin Type is :</h3>
+          <br></br>
+        <div className="r_ST">
+            <input
              type="radio"
-             checked={skintype === "Dry"}
+             name="ST"
              value = "Dry"
              onChange = {(e) => setSkinType(e.target.value)}
-            />
-             <label>Dry</label>
+            />&nbsp;
+             <label>Dry</label>&nbsp;&nbsp;
 
-            <br></br>
+           
            
              <input 
              type="radio"
-             checked={skintype === "Oily"}
+             name="ST"
              value = "Oily"
              onChange = {(e) => setSkinType(e.target.value)}
-            />
-             <label>Oily</label>
+            />&nbsp;
+             <label>Oily</label>&nbsp;&nbsp;
 
-            <br></br>
+           
 
             <input 
              type="radio"
-             checked={skintype === "Combination"}
+             name="ST"
              value = "Combination"
              onChange = {(e) => setSkinType(e.target.value)}
-            />
-             <label>Combination</label>
+            />&nbsp;
+             <label>Combination</label>&nbsp;&nbsp;
 
-            <br></br>
+         
 
              <input 
              type="radio"
-             checked={skintype === "Normal"}
+             name="ST"
              value = "Normal"
              onChange = {(e) => setSkinType(e.target.value)}
-            />
-             <label>Normal</label>
+            />&nbsp;
+             <label>Normal</label>&nbsp;&nbsp;
+              </div>
+            </div>
 
+            <div className="Sensitivity">
+            <h3 className="rl">Is my Skin Sensitive :</h3>
             <br></br>
 
-            <p>Is my Skin Sensitive :</p>
+            <div className="r_S">
             <input 
              type="radio"
-             checked={isSensitive === "true"}
+             name="Sen"
              value = "true"
              onChange = {(e) => setSensitivity(e.target.value)}
-            />
-            <label>Yes</label>   
+            />&nbsp;
+            <label>Yes</label> &nbsp;&nbsp;  
 
              <input 
              type="radio"
-             checked={isSensitive === "false"}
+             name="Sen"
              value = "false"
              onChange = {(e) => setSensitivity(e.target.value)}
-            />
-            <label>No</label>
+            />&nbsp;
+            <label>No</label>&nbsp;&nbsp;
+            </div>
 
+            </div>
+
+            <div className="SkinGoal">
+             <h3 className="rl">My Skin Goal is :</h3>
              <br></br>
 
-
-             <p>My Skin Goal is :</p>
+             <div className="r_SG">
             <input 
              type="radio"
-             checked={skingoal === "RB"}
+             name="SG"
              value = "RB"
              onChange = {(e) => setSkinGoal(e.target.value)}
-            />
-            <label>Reduce Breakout</label>   
+            />&nbsp;
+            <label>Reduce Breakout</label>&nbsp;&nbsp;
 
-            <br></br>
+       
 
              <input 
              type="radio"
-             checked={skingoal === "TH"}
+             name="SG"
              value = "TH"
              onChange = {(e) => setSkinGoal(e.target.value)}
-            />
-            <label>Target Hyperpigmentation</label>   
+            />&nbsp;
+            <label>Target Hyperpigmentation</label>&nbsp;&nbsp; 
 
-             <br></br>
+             
 
              <input 
              type="radio"
-             checked={skingoal === "HY"}
+             name="SG"
              value = "HY"
              onChange = {(e) => setSkinGoal(e.target.value)}
-            />
-            <label>Hydration</label>   
+            />&nbsp;
+            <label>Hydration</label>&nbsp;&nbsp; 
 
-             <br></br>
+             
 
              <input 
              type="radio"
-             checked={skingoal === "AA"}
+             name="SG"
              value = "AA"
              onChange = {(e) => setSkinGoal(e.target.value)}
-            />
-            <label>Anti-Aging</label>   
-
-             <br></br>
+            />&nbsp;
+            <label>Anti-Aging</label>&nbsp;&nbsp;  
+            </div> 
+            </div>
 
           <input type="submit" value="Next" />
         </form>
        </div>
-    </div>
+    </>
   );
 }
 

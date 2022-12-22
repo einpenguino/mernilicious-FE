@@ -92,13 +92,12 @@ app.post("/", requireAuth, async (req,res) => {
     catch(error){
         res.status(400).send(error.message); 
         console.log(error.message);   
+        
     }
     console.log('I got a request')
     console.log(req.body)
     
 });
-
-
 
 
 //Create a POST route, that creates new user (signup) and stored into the DB
@@ -117,9 +116,12 @@ app.post("/userCred", async (req,res) => {
     }
     catch(error){
         res.status(400).send(error.message); 
-        console.log(error.message);     
+        console.log(error.message);   
+        
     }  
 });
+
+
 
 
 //Create a POST route, that validates user login from the DB
@@ -133,8 +135,8 @@ app.post("/login", async (req,res) => {
             const checkPassword = await bcrypt.compare(req.body.password, checkUser.Password)
             if (checkPassword){
                 // When both username and password matches , create a token and assign to the log in user
-                const token = jwt.sign({_id: checkUser._id}, process.env.TOKEN_SECRET);
-                res.cookie('jwt',token, {httpOnly: true , expiresIn: '24h'});
+                const token = jwt.sign({_id: checkUser._id}, process.env.TOKEN_SECRET,{expiresIn:'1h'});
+                res.cookie('jwt',token, {httpOnly:true, secure:true, maxAge: 12 * 60 * 60 * 1000});
                 res.json([checkUser.Username, checkUser.Name])
             }
             else{
@@ -146,6 +148,25 @@ app.post("/login", async (req,res) => {
             throw 'Email incorrect or does not exsit, pls sign up'
         }
 
+    
+    }
+    catch(error){
+        res.status(400).json(error); 
+        console.log(error);     
+    }  
+    
+});
+
+
+//Create a POST route, that allows user to logout
+app.get("/logout", async (req,res) => {  
+
+    try{ 
+        
+        const token = req.cookies
+        res.clearCookie('jwt', token, {httpOnly:true, secure:true})
+        res.sendStatus(204)
+        console.log(token)
     
     }
     catch(error){
@@ -180,6 +201,20 @@ app.post("/skinsurvey",requireAuth, async (req,res) => {
     }  
     
 });
+
+app.delete("/prod", requireAuth, async (req,res)=>{
+try {
+     const idArray = req.body
+
+    const deleted = await Products.deleteMany({ _id: { $in: idArray } });
+    res.json({msg:"Delete Success"})
+
+  } catch (error) {
+    res.status(400).json(error.message); 
+    console.log(error);    
+  }
+   
+})
 
 
 

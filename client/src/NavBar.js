@@ -3,9 +3,11 @@ import './App.css';
 import React, { useEffect, useState } from 'react';
 import {motion} from 'framer-motion';
 import {FaBars} from 'react-icons/fa'
-import {Link} from 'react-router-dom'
+import {Link, Navigate, useNavigate} from 'react-router-dom'
 
 function NavBar({children}) {
+
+  const navigate = useNavigate();
 
  const username = sessionStorage.getItem("username");
   
@@ -13,44 +15,29 @@ function NavBar({children}) {
 
   const toggle = () => setIsOpen(!isOpen)
 
+  const logout =  async() => {
+    const data = await fetch('http://localhost:5000/logout')
+    sessionStorage.clear()
+    navigate("/")
+    
+  }
+
+
+  const Home = () => {
+    navigate("/")
+  }
+
+
   const uroutes =[
 
     {
-        path: "/",
-        name: "Home",
-    },
-
-    {
-        path: "/Login",
-        name: "Login",
+        path: "/HowToKnowYourSkinType",
+        name: "Skin Type",
        
-    },
-
-     {
-        path: "/ProductCatalog",
-        name: "Products",
-    
     }
   ]
 
   const adminroutes =[
-
-    {
-        path: "/",
-        name: "Home",
-    },
-
-    {
-        path: "/Login",
-        name: "Login",
-       
-    },
-
-     {
-        path: "/ProductCatalog",
-        name: "Products",
-    
-    },
 
      {
         path: "/AdminUpload",
@@ -74,12 +61,16 @@ function NavBar({children}) {
       <div className='top_section'>
          <div className='bars'> <FaBars onClick={toggle}/></div>
 
-       {isOpen && <h1 className ='logo'>Skin Mixology</h1>}
+       {isOpen && <h1 className ='logo' onClick={Home}>Skin Mixology</h1>}
 
       </div>
 
 
       <section className='routes'>
+
+
+        <Link to="/ProductCatalog" className='link'>Products</Link>
+
         
        {(username === "admin@gmail.com")?
           adminroutes.map((route) =>(
@@ -94,6 +85,12 @@ function NavBar({children}) {
 
       ))}
       
+      {(!username)?
+        <Link to="/Login" className='link'>Login</Link>      
+      :
+       <div className='link' onClick={logout}>Logout</div>
+      }
+
       </section>
 
       </motion.div>

@@ -11,6 +11,7 @@ import ProductCatalog from './ProductCatalog';
 import UserSkinGoal from './UserSkinGoal';
 import UserRegime from './UserRegime';
 import NavBar from './NavBar';
+import HowToKnowYourSkinType from './HowToKnowYourSkinType.js';
 
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
          <Routes>
             <Route path="/" element={<Home/>}/>
             <Route path="/Login" element={<Login/>}/>
+            <Route path="/HowToKnowYourSkinType" element={<HowToKnowYourSkinType/>}/>
             <Route path="/AdminUpload" element={<ProductUpload/>}/>
             <Route path="/ManageProductCatalog" element={<ManageProductCatalog/>}/>
             <Route path="/SignUp" element={<SignUp/>}/>
