@@ -8,6 +8,8 @@ function UserSkinGoal() {
   
    const name = sessionStorage.getItem("name");
    const username = sessionStorage.getItem("username");
+   
+
   const navigate = useNavigate();
 
   
@@ -39,7 +41,7 @@ function UserSkinGoal() {
       
         alert ("Success")
         navigate("/UserRegime")
-        console.log(data)
+        sessionStorage.setItem("userSurvey",data._id);
        
       }
       catch (error){

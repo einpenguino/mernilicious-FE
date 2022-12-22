@@ -311,13 +311,30 @@ img {
   clear: both;
 }
 
+.UserSkinRegime{
+  margin-left: 560px;
+}
+
 .AM, .PM{
   display:flex;
   flex-direction: row;
+  margin-left: -300px;
+  padding: 30px;
+  
+}
+
+.AM_Regime,
+.PM_Regime {
+   margin-top: 75px;
+}
+
+.Recommendation{
+  padding:20px
 }
 
 rect{
-  fill: black;
+  fill: gray;
+  opacity: 0.5;
 }
 
 

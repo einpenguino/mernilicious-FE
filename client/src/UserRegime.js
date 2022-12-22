@@ -19,11 +19,8 @@ return (
     </div>
 
     <div className="UserSkinRegime">
-        <h1 className="SkinRegimeTitle">Curate your Regime</h1>
-    </div>
-      
-    <div className="UserSkinRegime">
-        <h1 className="Recommendation"></h1>
+        <h1 className="SkinRegimeTitle">Curate your Skincare Regime</h1>
+        <h3 className="Recommendation">Recommendation</h3>
     </div>
 
         <div className ='AM'>
