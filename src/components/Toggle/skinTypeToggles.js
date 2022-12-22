@@ -19,7 +19,7 @@ export default function SkinTypeToggles({parentFormat, setFormatsParent}) {
       value={parentFormat}
       onChange={handleFormat}
       aria-label="skin type selection"
-      orientation='vertical'
+      // orientation='vertical'
     >
       <ToggleButton value="Dry Skin">
         {/* <FormatBoldIcon /> */}
@@ -33,9 +33,9 @@ export default function SkinTypeToggles({parentFormat, setFormatsParent}) {
             Oily Skin
         </Typography>
       </ToggleButton>
-      <ToggleButton value="Combination">
+      <ToggleButton value="All">
         <Typography>
-            Combination
+            Any
         </Typography>
       </ToggleButton>
     </ToggleButtonGroup>

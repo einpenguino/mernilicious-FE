@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 // import {logout} from '../store/features/isAuth'
 import Logout from './Logout';
 import { Link, Navigate, NavLink } from 'react-router-dom'
+import Grid from '@mui/material/Unstable_Grid2';
 
 function NavBar() {
   // let isAdmin
@@ -34,7 +35,15 @@ function NavBar() {
         {
           isAdmin ?
           <NavLink to='/adminupload'>
-            Admin Upload
+            Admin Products
+          </NavLink>
+          :
+          null
+        }
+        {
+          isAdmin ?
+          <NavLink to='/adminsettings'>
+            Admin Users
           </NavLink>
           :
           null

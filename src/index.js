@@ -20,6 +20,7 @@ import { PrivateRoute } from './components/PrivateRoute';
 import store from './store/store'
 import { Provider } from 'react-redux'
 import {isAuth} from './components/auth'
+import AdminProducts from './components/AdminProducts'
 
 // const router = createBrowserRouter([
 //   {
@@ -71,7 +72,7 @@ const router = createBrowserRouter([
   },
   {
     path:'/adminupload',
-    element:<PrivateRoute><ProductUpload/></PrivateRoute>
+    element:<PrivateRoute><AdminProducts/></PrivateRoute>
   },
   {
     path:'/signup',

@@ -28,7 +28,7 @@ const topFilms = [
           setTimeout(resolve, delay);
         });
       }
-export default function DirIngredientsToggle() {
+export default function DirIngredientsToggleAsync({parentFormat, setFormatsParent}) {
   const [open, setOpen] = React.useState(false);
   const [options, setOptions] = React.useState([]);
   const [data, setData] = React.useState([]);
@@ -55,7 +55,8 @@ export default function DirIngredientsToggle() {
       console.log(json)
 
       if (active) {
-        setOptions([...topFilms]);
+        // setOptions([...topFilms]);
+        setOptions([...json]);
       }
     })();
     return () => {
@@ -68,6 +69,9 @@ export default function DirIngredientsToggle() {
       setOptions([]);
     }
   }, [open]);
+  // React.useEffect(() => {
+  //   console.log(options)
+  // }, [options]);
 
   return (
       <Autocomplete
@@ -84,8 +88,8 @@ export default function DirIngredientsToggle() {
         onClose={() => {
             setOpen(false);
         }}
-        isOptionEqualToValue={(option, value) => option.title === value.title}
-        getOptionLabel={(option) => option.title}
+        isOptionEqualToValue={(option, value) => option.ingredients === value.ingredients}
+        getOptionLabel={(option) => option.ingredients}
         options={options}
         loading={loading}
 

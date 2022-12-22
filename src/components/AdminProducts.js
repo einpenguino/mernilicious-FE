@@ -5,6 +5,7 @@ import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Unstable_Grid2';
+// import Grid from '@mui/material/Grid';
 import { Typography } from '@mui/material';
 import NavBar from './NavBar';
 import ProductTypeToggles from './Toggle/productTypeToggles';
@@ -12,17 +13,10 @@ import SkinTypeToggles from './Toggle/skinTypeToggles';
 import Button from '@mui/material/Button';
 import ProductCard from './Product/ProductCard'
 import DirIngredientsToggle from './Toggle/DirIngredientsAutocomplete';
+import AdminProductToggle from './Product/AdminProductToggle'
 
 
-// const Item = styled(Paper)(({ theme }) => ({
-//   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-//   ...theme.typography.body2,
-//   padding: theme.spacing(1),
-//   textAlign: 'center',
-//   color: theme.palette.text.secondary,
-// }));
-
-export default function ProductCatalog() {
+export default function AdminProducts() {
 // Product type search fields
   const [name, setName] = useState(null)
   const [price, setPrice] = useState(null)
@@ -32,30 +26,8 @@ export default function ProductCatalog() {
   const [sensitive, setSensitive] = useState(null)
   const [data, setData] = useState([])
   const [gridArr, setGridArr] = useState([])
-  // const [formats, setFormats] = useState(() => ['Cleanser']);
-// const [prodDetails, setProdDetails] = useState('')
+  const [crudVal, setCrudVal] = useState('create')
 
-// useEffect(() => {
-//   // declare the async data fetching function
-//   const fetchData = async () => {
-//     // get the data from the api
-//     const data = await fetch('http://localhost:5000/prod');
-//     // convert the data to json
-//     const json = await data.json();
-
-//     // set state with the result
-//     let record = "";
-//     for (let object = 0; object < json.length; object++) {
-//          for (let details in json[object]){
-//             record += json[object][details] + " "
-//          }
-//     }
-//     setProdDetails(record);
-//   }
-
-//   fetchData()
-
-// },[])
   // useEffect(() => {fetchProducts()}, [])
   
   // useEffect(()=>{console.log(productType)},[productType])
@@ -127,13 +99,13 @@ export default function ProductCatalog() {
     
     <Box sx={{ flexGrow: 1 }}>
       
-      <Grid container spacing={5}>
+      <Grid container spacing={2}>
         <Grid xs={12}>
           <NavBar/>
         </Grid>
         <Grid xs={12}>
           <Typography fontSize={20} align='center'>
-            <strong>Products</strong>
+            <strong>Products Administration</strong>
           </Typography>
         </Grid>
         
@@ -147,19 +119,22 @@ export default function ProductCatalog() {
           onRowsPerPageChange={handleChangeRowsPerPage}
         />
         </Grid> */}
-        <Grid xs={6}>
+        <Grid xs={4}>
           <div align='center'>
             <ProductTypeToggles parentFormat={productType} setFormatsParent={setProductType}/>
           </div>
         </Grid>
         <Grid xs={4}>
-          <div align='left'>
+          <div align='right'>
             <SkinTypeToggles parentFormat={skinType} setFormatsParent={setSkinType}/>
           </div>
         </Grid>
         <Grid sx={2}>
+          <AdminProductToggle parentFormat={crudVal} setFormatsParent={setCrudVal}/>
+        </Grid>
+        <Grid sx={2}>
           <Button onClick={fetchProducts}>
-            Send Request
+            Execute
           </Button>
         </Grid>
         
@@ -181,7 +156,11 @@ export default function ProductCatalog() {
         })
         :
         null} */}
-        {gridArr}
+        {crudVal === 'create' ?
+        <h1>Empty</h1>
+        :
+        gridArr
+        }
       
       </Grid>
       
