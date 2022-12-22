@@ -7,6 +7,11 @@ import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Unstable_Grid2';
 import { Typography } from '@mui/material';
 import NavBar from './NavBar';
+import ProductTypeToggles from './Toggle/productTypeToggles';
+import SkinTypeToggles from './Toggle/skinTypeToggles';
+import Button from '@mui/material/Button';
+import DirIngredientsToggle from './Toggle/DirIngredientsAutocomplete';
+
 
 // const Item = styled(Paper)(({ theme }) => ({
 //   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -17,7 +22,14 @@ import NavBar from './NavBar';
 // }));
 
 export default function ProductCatalog() {
-
+// Product type search fields
+  const [name, setName] = useState(null)
+  const [price, setPrice] = useState(null)
+  const [skinType, setSkinType] = useState(() => ['Oily Skin', 'Dry Skin', 'Combination'])
+  const [productType, setProductType] = useState(() => ['Cleanser'])
+  const [ingredients, setIngredients] = useState(null)
+  const [sensitive, setSensitive] = useState(null)
+  // const [formats, setFormats] = useState(() => ['Cleanser']);
 // const [prodDetails, setProdDetails] = useState('')
 
 // useEffect(() => {
@@ -41,7 +53,33 @@ export default function ProductCatalog() {
 //   fetchData()
 
 // },[])
-  const [page, setPage] = useState(2);
+  useEffect(() => {fetchProducts()}, [])
+  useEffect(()=>{console.log(productType)},[productType])
+  const form = { 
+    name, 
+    price, 
+    skinType, 
+    productType, 
+    ingredients, 
+    sensitive }
+  const options = {
+    method : 'POST',
+    credentials: "include",
+    headers :{
+      'Content-Type': 'application/json',
+    },
+    // mode:'no-cors',
+    body:JSON.stringify(form)
+  }
+  const fetchProducts = async () => {
+    console.log(options.body)
+    const response = await fetch(`${process.env.REACT_APP_EXPRESS_URL}/products`, options);
+    // console.log(response)
+    const json = await response.json()
+    console.log(json)
+
+  }
+  const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
   const handleChangePage = (event, newPage) => {
@@ -58,12 +96,13 @@ export default function ProductCatalog() {
     <Box sx={{ flexGrow: 1 }}>
       <NavBar/>
       <Grid container spacing={2}>
-        <Grid xs={3}>
+        <Grid xs={6}>
           <Typography fontSize={20} align='center'>
             <strong>Product List</strong>
           </Typography>
         </Grid>
-        <Grid xs={8}>
+        
+        <Grid xs={6}>
         <TablePagination
           component="div"
           count={100}
@@ -73,6 +112,21 @@ export default function ProductCatalog() {
           onRowsPerPageChange={handleChangeRowsPerPage}
         />
         </Grid>
+        <Grid xs={8}>
+          <div align='center'>
+            <ProductTypeToggles parentFormat={productType} setFormatsParent={setProductType}/>
+          </div>
+        </Grid>
+        <Grid xs={3}>
+          <div align='center'>
+            <SkinTypeToggles parentFormat={skinType} setFormatsParent={setSkinType}/>
+          </div>
+        </Grid>
+        <Grid xs={12}>
+          <div align='center'>
+            <DirIngredientsToggle parentFormat={skinType} setFormatsParent={setSkinType}/>
+          </div>
+        </Grid>
         {/* <Grid xs={4}>
           <Item>xs=4</Item>
         </Grid>
@@ -80,6 +134,9 @@ export default function ProductCatalog() {
           <Item>xs=8</Item>
         </Grid> */}
       </Grid>
+      <Button onClick={fetchProducts}>
+        Send Request
+      </Button>
     </Box>
   );
 }

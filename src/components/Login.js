@@ -67,6 +67,7 @@ const Login=()=>{
 
         if (!json.skinGoal | !json.skinType | !json.skinSensitivity){
           dispatch(login())
+          dispatch(store(json))
           setFail(false)
           // console.log(useSelector((state) => state.auth.value))
           navigate("/skingoal")
