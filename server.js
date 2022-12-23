@@ -44,18 +44,18 @@ app.use(express.urlencoded({ limit: '50mb', extended: true}));
 app.use(cookieParser())
 
 //serving the FE
-app.use(express.static(path.join(__dirname, "./client/build")));
-app.get("*", function (req, res) {
-  res.sendFile(
-    path.join(__dirname, "./client/build/index.html"))
-    // function (err) {
-    //   res.status(500).send(err);
-    // }
-});
+// app.use(express.static(path.join(__dirname, "./client/build")));
+// app.get("*", function (req, res) {
+//   res.sendFile(
+//     path.join(__dirname, "./client/build/index.html"))
+//     // function (err) {
+//     //   res.status(500).send(err);
+//     // }
+// });
 
 
 //Create a GET route, for getting all the product
-app.get("/prod", async(req, res) => {
+app.get("/api/prod", async(req, res) => {
     try{
         const prods = await Products.find();
         res.json(prods);
@@ -67,7 +67,7 @@ app.get("/prod", async(req, res) => {
 
 
 //Create a GET route, for getting all the Active Ingredients
-app.get("/activeIng", async(req, res) => {
+app.get("/api/activeIng", async(req, res) => {
     try{
         const skinmap = await SkinGoals.distinct('ActiveIngredients');
         res.json(skinmap);
@@ -80,7 +80,7 @@ app.get("/activeIng", async(req, res) => {
 
 
 //Create a GET route, for getting all the Skin Goal 
-app.get("/skinGoal", async(req, res) => {
+app.get("/api/skinGoal", async(req, res) => {
     try{
         const skinmap = await SkinGoals.find({},{SkinGoal:1, SkinGoalName:1});
         res.json(skinmap);
@@ -91,7 +91,7 @@ app.get("/skinGoal", async(req, res) => {
 });
 
 //Create a GET route, for getting the active ingredients base on the Skin Goal
-app.get("/activeIng/:id", async(req, res) => {
+app.get("/api/activeIng/:id", async(req, res) => {
      const id = req.params.id 
      console.log(id)
     try{
@@ -107,7 +107,7 @@ app.get("/activeIng/:id", async(req, res) => {
 
 
 //Create a POST route, that create/upload new product into the DB
-app.post("/", requireAuth, async (req,res) => {
+app.post("/api", requireAuth, async (req,res) => {
 
   
     const prod = new Products({
@@ -140,7 +140,7 @@ app.post("/", requireAuth, async (req,res) => {
 
 
 //Create a POST route, that creates new user (signup) and stored into the DB
-app.post("/userCred", async (req,res) => {
+app.post("/api/userCred", async (req,res) => {
 
    const hash = await bcrypt.hash(req.body.password, 10)
     const user = new UserCreds({
@@ -164,7 +164,7 @@ app.post("/userCred", async (req,res) => {
 
 
 //Create a POST route, that validates user login from the DB
-app.post("/login", async (req,res) => {  
+app.post("/api/login", async (req,res) => {  
 
     try{ 
         //Check if user exist in the DB thru the username
@@ -198,7 +198,7 @@ app.post("/login", async (req,res) => {
 
 
 //Create a POST route, that allows user to logout
-app.get("/logout", async (req,res) => {  
+app.get("/api/logout", async (req,res) => {  
 
     try{ 
         
@@ -218,7 +218,7 @@ app.get("/logout", async (req,res) => {
 
 
 //Create a POST route, to store user details on their skinprofile in the DB
-app.post("/skinsurvey",requireAuth, async (req,res) => {  
+app.post("/api/skinsurvey",requireAuth, async (req,res) => {  
     
     const checkUser = await UserCreds.findOne({Username: req.body.username}).exec();
     const getSkinGoal = await SkinGoals.findOne({SkinGoal: req.body.skingoal}).exec();
@@ -242,7 +242,7 @@ app.post("/skinsurvey",requireAuth, async (req,res) => {
     
 });
 
-app.delete("/prod", requireAuth, async (req,res)=>{
+app.delete("/api/prod", requireAuth, async (req,res)=>{
 try {
      const idArray = req.body
 

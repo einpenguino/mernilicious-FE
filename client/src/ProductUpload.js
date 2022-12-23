@@ -71,7 +71,7 @@ useEffect(() => {
   // declare the async data fetching function
   const fetchData = async () => {
     // get the data from the api
-    const data = await fetch('/activeIng');
+    const data = await fetch('/api/activeIng');
     // convert the data to json
     const json = await data.json();
 
@@ -98,7 +98,7 @@ useEffect(() => {
 
   //async function to post data to DB
     const postProduct = async () => {
-      const response = await fetch('/', options);
+      const response = await fetch('/api', options);
       const data = await response.json();
       try{  
       
@@ -169,7 +169,7 @@ useEffect(() => {
 
           <div className="prodrow">
               <div className="col-35">
-                <label>Price: </label>
+                <label>Price($): </label>
               </div>
             <div className="col-65">
               <input
