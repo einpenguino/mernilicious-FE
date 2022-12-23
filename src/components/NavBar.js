@@ -47,6 +47,14 @@ function NavBar() {
           </NavLink>
           :
           null
+        },
+        {
+          isAdmin ?
+          <NavLink to='/deleteproducts'>
+            Delete Products
+          </NavLink>
+          :
+          null
         }
         {
           isAdmin ?

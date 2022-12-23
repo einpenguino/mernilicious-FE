@@ -16,37 +16,77 @@ import ProductSearch from './ProductSearch'
 const theme = createTheme();
 
 export default function AdminUpdateProducts() {
-    const [name, setName] = useState('')
-    const [price, setPrice] = useState('0.0')
-    const [skinType, setSkinType] = useState(() => 'all')
-    const [productType, setProductType] = useState(() => 'cleanser')
-    const [ingredients, setIngredients] = useState(null)
-    const [sensitive, setSensitive] = useState(false)
-    const [data, setData] = useState(null)
-    const [entry, setEntry] = useState(null)
-    const [productID, setProductID] = useState(null)
-  const updateProductForm = {name , price , skinType, productType, ingredients, sensitive }
+  const [name, setName] = useState('')
+  const [price, setPrice] = useState('0.0')
+  const [skinType, setSkinType] = useState(() => 'all')
+  const [productType, setProductType] = useState(() => 'cleanser')
+  const [ingredients, setIngredients] = useState(null)
+  const [sensitive, setSensitive] = useState(false)
+  const [data, setData] = useState(null)
+  const [entry, setEntry] = useState(null)
+  const [productID, setProductID] = useState(null)
+  const updateProductForm = { productID, name , price , skinType, productType, ingredients, sensitive }
   const navigate = useNavigate();
 //   useEffect(()=>{console.log(updateProductForm)},[updateProductForm])
-  const options = {
-                  method : 'PUT',
-                  credentials : 'include',
-                  headers :{
-                    'Content-Type': 'application/json'
-                  },
-                  body:JSON.stringify(updateProductForm)
-                }
+  // useEffect(()=>{
+  //   // console.log(name === null)
+  //   if (!name){
+      // setData(null)
+      // setName('')
+      // setPrice('0.0')
+      // setSkinType(()=>'all')
+      // setProductType(()=>'cleanser')
+      // setSensitive(false)
+      // setProductID(null)
+  //   }
+  // }, [name])
+  const setDefaultFields = () => {
+    setData(null)
+      setName('')
+      setPrice('0.0')
+      setSkinType(()=>'all')
+      setProductType(()=>'cleanser')
+      setSensitive(false)
+      setProductID(null)
+    
+  }
+
+  useEffect(()=>{
+    console.log(data)
+    if (data){
+      setProductID(data._id)
+      setName(data.name)
+      setPrice(data.price['$numberDecimal'])
+      setProductType(data.productType)
+      setSensitive(data.sensitive)
+      setSkinType(data.skinType)
+      // console.log(data.productType)
+    }
+    
+  }, [data])
+
+  useEffect(()=> {console.log(updateProductForm)}, [updateProductForm])
+  const fetchOptions = {
+                method : 'PUT',
+                credentials : 'include',
+                headers :{
+                  'Content-Type': 'application/json'
+                },
+                body:JSON.stringify(updateProductForm)
+              }
 
   //async function to post data to DB
   const postProduct = async () => {
-    const response = await fetch(`${process.env.REACT_APP_EXPRESS_URL}/updateproducts`, options);
-    // const response = await fetch(`${process.env.REACT_APP_EXPRESS_URL}/userCred`, options);
+    const response = await fetch(`${process.env.REACT_APP_EXPRESS_URL}/updateproducts`, fetchOptions);
+    // const response = await fetch(`${process.env.REACT_APP_EXPRESS_URL}/userCred`, fetchOptions);
     // const result = await response.json()
     // console.log(result)
+    const data = await response.json();
     if (response.status == 200){
       try{ 
-        const data = await response.json();
+        setDefaultFields()
         alert ("Product Successfully Updated!")
+
         // navigate('/login')
         console.log(data)
       }
@@ -56,17 +96,11 @@ export default function AdminUpdateProducts() {
   
       }
     }else{
-        alert ("Product Update Failed!")
+        // alert ("Product Update Failed!")
+        alert (data? data : response.status)
     }
   }
-  useEffect(()=>{
-    console.log(data)
-    // setPrice(data.price[$numberDecimal])
-    // setProductType(data.ProductType)
-    // setSensitive(data.sensitive)
-    // setSkinType(data.skinType)
-    console.log(data)
-  }, [data])
+  
 
   const handleSubmit = (e) =>{
     e.preventDefault();
@@ -99,20 +133,21 @@ export default function AdminUpdateProducts() {
                 {/* <TextField
                   required
                   fullWidth
-                  id="product-name-signup"
+                  id="product-name-update"
                   label="Product Name"
                   autoFocus
                   onChange = {(e) => {setName(e.target.value)}}
                 /> */}
-                <ProductSearch parentFormat={data} setParentFormat={setData}/>
+                <ProductSearch parentFormat={data} setParentFormat={setData} reset={setDefaultFields}/>
               </Grid>
               <Grid item xs={12}>
                 <TextField
                   required
                   fullWidth
-                  id="product-price-signup"
+                  id="product-price-update"
                   label={price? `$ ${price}` : '$0.0'}
                   onChange = {(e) => {setPrice(e.target.value)}}
+
                 />
               </Grid>
               <Grid item xs={12}>
@@ -121,7 +156,7 @@ export default function AdminUpdateProducts() {
                   fullWidth
                   select
                   value={productType}
-                  id="product-type-signup"
+                  id="product-type-update"
                   label="Product Type"
                   onChange = {(e) => {setProductType(e.target.value)}}
                 >
@@ -137,8 +172,8 @@ export default function AdminUpdateProducts() {
                     required
                     fullWidth
                     select
-                    value='all'
-                    id="skin-type-signup"
+                    value={skinType}
+                    id="skin-type-update"
                     label="Suitable for people with:"
                     onChange = {(e) => {setSkinType(e.target.value)}}
                     >
@@ -153,8 +188,8 @@ export default function AdminUpdateProducts() {
                     required
                     fullWidth
                     select
-                    value={false}
-                    id="sensitive-signup"
+                    value={sensitive}
+                    id="sensitive-update"
                     label="Suitable for people with:"
                     onChange = {(e) => {setSensitive(e.target.value)}}
                     >

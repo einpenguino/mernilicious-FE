@@ -29,7 +29,7 @@ export default function AdminProducts() {
   
   // useEffect(()=>{console.log(productType)},[productType])
   
-  const form = { 
+  const formAdmin = { 
     name, 
     price, 
     skinType, 
@@ -38,7 +38,7 @@ export default function AdminProducts() {
     sensitive 
   }
 
-  useEffect(()=>{console.log(form)},[form])
+  useEffect(()=>{console.log(formAdmin)},[formAdmin])
   // useEffect(() => {fetchProducts()}, [form])
 
   const options = {
@@ -48,7 +48,7 @@ export default function AdminProducts() {
       'Content-Type': 'application/json',
     },
     // mode:'no-cors',
-    body:JSON.stringify(form)
+    body:JSON.stringify(formAdmin)
   }
   const fetchProducts = async () => {
     console.log(options.body)

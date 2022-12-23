@@ -3,15 +3,7 @@ import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import CircularProgress from '@mui/material/CircularProgress';
 
-const options = {
-    method : 'GET',
-    credentials: "include",
-    headers :{
-      'Content-Type': 'application/json',
-    },
-    // mode:'no-cors',
-    // body:JSON.stringify(form)
-  }
+
 
 function sleep(delay = 0) {
   return new Promise((resolve) => {
@@ -19,7 +11,17 @@ function sleep(delay = 0) {
   });
 }
 
-export default function ProductSearch({ parentFormat, setParentFormat}) {
+export default function ProductSearch({ parentFormat, setParentFormat, reset}) {
+  const fetchOptions = {
+    method : 'GET',
+    credentials: "include",
+    // headers :{
+    //   'Content-Type': 'application/json',
+    // },
+    // mode:'no-cors',
+    // body:JSON.stringify(form)
+  }
+
   const [open, setOpen] = useState(false);
   const [options, setOptions] = useState([]);
   const loading = open && options.length === 0;
@@ -30,7 +32,7 @@ export default function ProductSearch({ parentFormat, setParentFormat}) {
       return undefined;
     }
     (async () => {
-      const response = await fetch(`${process.env.REACT_APP_EXPRESS_URL}/products`, options)
+      const response = await fetch(`${process.env.REACT_APP_EXPRESS_URL}/products`, fetchOptions)
       const json = await response.json()
     //   console.log(json)
     //   let nl = []
@@ -58,6 +60,7 @@ export default function ProductSearch({ parentFormat, setParentFormat}) {
     //   sx={{ width: 345 }}
       fullWidth
       open={open}
+      value={parentFormat}
       onOpen={() => {
         setOpen(true);
       }}
@@ -74,7 +77,7 @@ export default function ProductSearch({ parentFormat, setParentFormat}) {
       renderInput={(params) => (
         <TextField
           {...params}
-          label="Product to be updated"
+          label="Search for available products"
           InputProps={{
             ...params.InputProps,
             endAdornment: (
