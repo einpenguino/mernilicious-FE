@@ -409,6 +409,47 @@ rect{
       margin-top: -10px;
 }
 
+.Title{
+
+  margin-left: 600px;
+  margin-top: 30px;
+
+}  
+
+.Title-1{
+      margin-left: 200px;
+      margin-top: 10px;
+}
+
+.list-1 {
+  margin-left: 180px;
+  margin-top: 30px;
+}
+
+
+.Title-2 {
+  margin-left: 180px;
+  padding:10px;
+  width: 300px;
+}
+
+.list-2 {
+  margin-left: 180px;
+}
+
+.Courtesy {
+  margin-left: 180px;
+  padding: 10px;
+}
+
+.Home-Title {
+
+  margin-left: 600px;
+  margin-top: 250px;
+  padding:20px;
+
+}
+
 /* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
 @media screen and (max-width: 600px) {
 
