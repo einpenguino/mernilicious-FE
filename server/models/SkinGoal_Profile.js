@@ -7,7 +7,11 @@ const skinGoalSchema = new Schema(
     {
 
         SkinGoal:{
-            type:String, required:true
+            type:String, required:true , unique:true, uppercase:true
+        },
+
+        SkinGoalName:{
+            type:String, required:true 
         },
 
          ActiveIngredients:{

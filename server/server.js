@@ -56,10 +56,38 @@ app.get("/prod", async(req, res) => {
 
 
 //Create a GET route, for getting all the Active Ingredients
-app.get("/skinmap", async(req, res) => {
+app.get("/activeIng", async(req, res) => {
     try{
         const skinmap = await SkinGoals.distinct('ActiveIngredients');
         res.json(skinmap);
+    }
+    catch(err){
+        res.json({message:err})
+    }
+});
+
+
+
+//Create a GET route, for getting all the Skin Goal 
+app.get("/skinGoal", async(req, res) => {
+    try{
+        const skinmap = await SkinGoals.find({},{SkinGoal:1, SkinGoalName:1});
+        res.json(skinmap);
+    }
+    catch(err){
+        res.json({message:err})
+    }
+});
+
+//Create a GET route, for getting the active ingredients base on the Skin Goal
+app.get("/activeIng/:id", async(req, res) => {
+     const id = req.params.id 
+     console.log(id)
+    try{
+        const skinmap = await SkinGoals.findById({_id:id});
+        res.json([skinmap.SkinGoalName, skinmap.ActiveIngredients]);
+        
+        
     }
     catch(err){
         res.json({message:err})
@@ -182,12 +210,13 @@ app.get("/logout", async (req,res) => {
 app.post("/skinsurvey",requireAuth, async (req,res) => {  
     
     const checkUser = await UserCreds.findOne({Username: req.body.username}).exec();
-    
+    const getSkinGoal = await SkinGoals.findOne({SkinGoal: req.body.skingoal}).exec();
+
      const survey = new UserProfiles({
         Username: checkUser._id,
         SkinType: req.body.skintype,
         Sensitivity: req.body.isSensitive,
-        SkinGoal: req.body.skingoal
+        SkinGoal: getSkinGoal._id
 
     });
 

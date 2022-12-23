@@ -19,7 +19,8 @@ const userProfileSchema = new Schema(
         },
 
         SkinGoal:{
-            type:String, required:true
+            type:Schema.Types.ObjectID, 
+            ref:'SkinGoal_Profile'
         },
 
          RegimeID:{

@@ -13,13 +13,33 @@ function UserSkinGoal() {
   const navigate = useNavigate();
 
   
-
+  const [skinGoalOpt, setSkinGoalOpt] = useState([])
   const [skintype, setSkinType] = useState('')
   const [isSensitive, setSensitivity] = useState('')
   const [skingoal, setSkinGoal] = useState('')
  
 
   const form = {username, skintype , isSensitive, skingoal}
+
+//Get Skin Goal mapping
+useEffect(() => {
+
+
+  // declare the async data fetching function
+  const fetchData = async () => {
+    // get the data from the api
+    const data = await fetch('http://localhost:5000/skinGoal');
+    // convert the data to json
+    const json = await data.json();
+
+    setSkinGoalOpt(json)
+    console.log(json)
+  
+  }
+
+  fetchData()
+
+},[])
 
 
 
@@ -33,7 +53,7 @@ function UserSkinGoal() {
                   body:JSON.stringify(form)
                 }
 
-//async function to sent login details and verify if account is in the DB
+//async function to sent userSkinProfile details and verify if account is in the DB
     const postUserProfile = async () => {
       const response = await fetch('http://localhost:5000/skinsurvey', options);
       const data = await response.json()
@@ -41,7 +61,8 @@ function UserSkinGoal() {
       
         alert ("Success")
         navigate("/UserRegime")
-        sessionStorage.setItem("userSurvey",data._id);
+        console.log(data)
+        sessionStorage.setItem("skinGoal",data.SkinGoal);
        
       }
       catch (error){
@@ -157,44 +178,23 @@ function UserSkinGoal() {
              <h3 className="rl">My Skin Goal is :</h3>
              <br></br>
 
-             <div className="r_SG">
-            <input 
-             type="radio"
-             name="SG"
-             value = "RB"
-             onChange = {(e) => setSkinGoal(e.target.value)}
-            />&nbsp;
-            <label>Reduce Breakout</label>&nbsp;&nbsp;
+              <div className="r_SG">
+            {skinGoalOpt.length > 0 && (
+             skinGoalOpt.map(goalOpt=>(
+              <div key={goalOpt._id}>
+              <input 
+              type="radio"
+               name="SG"
+               value = {goalOpt.SkinGoal}
+              onChange = {(e) => setSkinGoal(e.target.value)}
+              />
+              <label>{goalOpt.SkinGoalName}</label>
+              </div>
+            
+           ))
+           
+           )}
 
-       
-
-             <input 
-             type="radio"
-             name="SG"
-             value = "TH"
-             onChange = {(e) => setSkinGoal(e.target.value)}
-            />&nbsp;
-            <label>Target Hyperpigmentation</label>&nbsp;&nbsp; 
-
-             
-
-             <input 
-             type="radio"
-             name="SG"
-             value = "HY"
-             onChange = {(e) => setSkinGoal(e.target.value)}
-            />&nbsp;
-            <label>Hydration</label>&nbsp;&nbsp; 
-
-             
-
-             <input 
-             type="radio"
-             name="SG"
-             value = "AA"
-             onChange = {(e) => setSkinGoal(e.target.value)}
-            />&nbsp;
-            <label>Anti-Aging</label>&nbsp;&nbsp;  
             </div> 
             </div>
 

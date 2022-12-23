@@ -332,6 +332,12 @@ img {
   padding:20px
 }
 
+.item+.item::before {
+  display: inline-block;
+  white-space: pre;
+  content: ", ";
+}
+
 rect{
   fill: gray;
   opacity: 0.5;

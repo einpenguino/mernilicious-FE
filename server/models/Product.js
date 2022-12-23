@@ -13,7 +13,7 @@ const productSchema = new Schema(
         },
 
         Price:{
-            type:Number, required:true
+            type:Schema.Types.Decimal128, required:true
         },
 
         Product_Type:{
