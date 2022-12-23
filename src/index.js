@@ -21,6 +21,7 @@ import store from './store/store'
 import { Provider } from 'react-redux'
 import {isAuth} from './components/auth'
 import AdminProducts from './components/AdminProducts'
+import CreateProductForm from './components/Product/CreateProductForm';
 
 // const router = createBrowserRouter([
 //   {
@@ -73,6 +74,10 @@ const router = createBrowserRouter([
   {
     path:'/adminupload',
     element:<PrivateRoute><AdminProducts/></PrivateRoute>
+  },
+  {
+    path:'/createproducts',
+    element:<PrivateRoute><CreateProductForm/></PrivateRoute>
   },
   {
     path:'/signup',

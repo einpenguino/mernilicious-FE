@@ -127,7 +127,7 @@ export default function ProductCatalog() {
     
     <Box sx={{ flexGrow: 1 }}>
       
-      <Grid container spacing={5}>
+      <Grid container spacing={2}>
         <Grid xs={12}>
           <NavBar/>
         </Grid>
@@ -147,7 +147,7 @@ export default function ProductCatalog() {
           onRowsPerPageChange={handleChangeRowsPerPage}
         />
         </Grid> */}
-        <Grid xs={6}>
+        <Grid xs={4}>
           <div align='center'>
             <ProductTypeToggles parentFormat={productType} setFormatsParent={setProductType}/>
           </div>
@@ -155,6 +155,13 @@ export default function ProductCatalog() {
         <Grid xs={4}>
           <div align='left'>
             <SkinTypeToggles parentFormat={skinType} setFormatsParent={setSkinType}/>
+          </div>
+        </Grid>
+        <Grid xs={2}>
+          <div align='left'>
+            <Typography>
+              {gridArr? `Products Found: ${gridArr.length}`:null}
+            </Typography>
           </div>
         </Grid>
         <Grid sx={2}>

@@ -34,20 +34,28 @@ function NavBar() {
         </NavLink>
         {
           isAdmin ?
-          <NavLink to='/adminupload'>
-            Admin Products
+          <NavLink to='/createproducts'>
+            Create Products
           </NavLink>
           :
           null
         }
         {
           isAdmin ?
+          <NavLink to='/adminupload'>
+            Admin Products
+          </NavLink>
+          :
+          null
+        },
+        {/* {
+          isAdmin ?
           <NavLink to='/adminsettings'>
             Admin Users
           </NavLink>
           :
           null
-        }
+        } */}
       </header>
     </div>
   );

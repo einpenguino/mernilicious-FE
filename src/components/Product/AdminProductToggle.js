@@ -16,11 +16,11 @@ export default function AdminProductToggle({parentFormat, setFormatsParent}) {
       exclusive
       aria-label="crud selection"
     >
-      <ToggleButton value="create">
+      {/* <ToggleButton value="create">
         <Typography>
             Create
         </Typography>
-      </ToggleButton>
+      </ToggleButton> */}
       <ToggleButton value="update">
         <Typography>
             Update

@@ -58,7 +58,7 @@ const Login=()=>{
       console.log(json)
     
       if (response.status === 200){
-        
+
         if (json.isAdmin){
           dispatch(load())
         }else{
@@ -70,7 +70,8 @@ const Login=()=>{
           dispatch(store(json))
           setFail(false)
           // console.log(useSelector((state) => state.auth.value))
-          navigate("/skingoal")
+          // navigate("/skingoal")
+          navigate("/products")
         }
         else {
           dispatch(login())

@@ -1,9 +1,5 @@
 import React, { useEffect, useState, ChangeEvent } from 'react';
-import {Link} from 'react-router-dom';
-import TablePagination from '@mui/material/TablePagination';
-import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
-import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Unstable_Grid2';
 // import Grid from '@mui/material/Grid';
 import { Typography } from '@mui/material';
@@ -14,13 +10,14 @@ import Button from '@mui/material/Button';
 import ProductCard from './Product/ProductCard'
 import DirIngredientsToggle from './Toggle/DirIngredientsAutocomplete';
 import AdminProductToggle from './Product/AdminProductToggle'
+import CreateProductForm from './Product/CreateProductForm'
 
 
 export default function AdminProducts() {
 // Product type search fields
   const [name, setName] = useState(null)
   const [price, setPrice] = useState(null)
-  const [skinType, setSkinType] = useState(() => ['Oily Skin', 'Dry Skin', 'All'])
+  const [skinType, setSkinType] = useState(() => ['oily', 'dry', 'all'])
   const [productType, setProductType] = useState(() => ['Cleanser'])
   const [ingredients, setIngredients] = useState(null)
   const [sensitive, setSensitive] = useState(null)
@@ -156,9 +153,7 @@ export default function AdminProducts() {
         })
         :
         null} */}
-        {crudVal === 'create' ?
-        <h1>Empty</h1>
-        :
+        {
         gridArr
         }
       
