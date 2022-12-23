@@ -54,13 +54,18 @@ const allDelete = async () => {
 
 
   return (
+
+
     <div className="AdminProduct">
 
+      <div className="AdminHeader">
         <h1>Manage Product Catalog</h1>
-         <div className="Product">   
 
-        <button className="DeleteBtn" onClick={allDelete} >Delete</button>
+         <button className="DeleteBtn" onClick={allDelete} >Delete</button>
+        </div>
 
+
+         <div className="ManageTable">   
         <table className="mainTable">
           <thead>
             <tr>
@@ -79,7 +84,7 @@ const allDelete = async () => {
           <tbody>
             {prodDetails.map((proditem, index)=>(
             <tr key={index}>
-              <td><input type="checkbox" value={proditem._id} checked={proditem.isChecked} onChange={(e)=>handleCheckBox(e)}/></td>
+              <td><input type="checkbox" className="deletecheck" value={proditem._id} checked={proditem.isChecked} onChange={(e)=>handleCheckBox(e)}/></td>
               <th scope="row">{index + 1}</th>
               <td>{proditem.Product_ID}</td>
               <td>{proditem.Product_Type}</td>

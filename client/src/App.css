@@ -20,6 +20,20 @@ ul li {
 }
 
 
+table {
+  border: 1px solid black;
+  table-layout: fixed;
+  width: 500px;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  border: 1px solid black;
+  width: 150px;
+  overflow: hidden;
+}
+
 .Pagination{
   margin-left: 700px;
   margin-bottom:-25px;
@@ -143,6 +157,7 @@ ul li {
 
   .r_SG {
     margin-left: -200px;
+    display: flex;
   }
 
 .Product {
@@ -311,25 +326,44 @@ img {
   clear: both;
 }
 
-.UserSkinRegime{
+.UserSkinRegime,.UserSkinDiary{
   margin-left: 560px;
+  margin-top: -10px;
 }
 
 .AM, .PM{
   display:flex;
   flex-direction: row;
   margin-left: -300px;
-  padding: 30px;
+  padding: 50px;
+  
   
 }
+
+.PM {
+  margin-top: -40px;
+
+}
+
 
 .AM_Regime,
 .PM_Regime {
    margin-top: 75px;
 }
 
-.Recommendation{
-  padding:20px
+.Recommendation,.skin{
+  padding:10px
+}
+
+.Recommendation,
+.skin, .skin_g, .skin_r {
+  width: 400px;
+  text-align: center;
+}
+
+.regimelabel{
+      margin-left: 50px;
+      text-align: center;
 }
 
 .item+.item::before {
@@ -338,12 +372,42 @@ img {
   content: ", ";
 }
 
+.NA{
+  fill: whitesmoke;
+}
+
 rect{
   fill: gray;
   opacity: 0.5;
 }
 
 
+.AdminHeader{
+  margin-left:600px;
+  margin-top:30px;
+}
+
+.DeleteBtn{
+  margin-left:150px;
+  margin-top:20px;
+}
+
+.ManageTable{
+  padding: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 100px;
+}
+
+.deletecheck{
+ margin-left: 65px;
+}
+
+.plus-sign{
+      margin-left: 1250px;
+      margin-top: -10px;
+}
 
 /* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
 @media screen and (max-width: 600px) {

@@ -34,6 +34,12 @@ function NavBar({children}) {
         path: "/HowToKnowYourSkinType",
         name: "Skin Type",
        
+    },
+
+    {
+        path: "/MySkinDiary",
+        name: "My Skin Diary",
+       
     }
   ]
 
@@ -68,22 +74,28 @@ function NavBar({children}) {
 
       <section className='routes'>
 
-
+   
         <Link to="/ProductCatalog" className='link'>Products</Link>
-
         
-       {(username === "admin@gmail.com")?
+      {(!username)?
+          <Link to="/HowToKnowYourSkinType" className='link'>Skin Type</Link>
+        :
+        
+       (username === "admin@gmail.com")?
           adminroutes.map((route) =>(
                 <Link to={route.path} key={route.name} className='link'>
                   <div className='link_text'>{route.name}</div>
                 </Link>
         )):
+
         uroutes.map((route) =>(
                 <Link to={route.path} key={route.name} className='link'>
                   <div className='link_text'>{route.name}</div>
                 </Link>
 
       ))}
+
+    
       
       {(!username)?
         <Link to="/Login" className='link'>Login</Link>      

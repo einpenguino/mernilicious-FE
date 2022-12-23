@@ -12,6 +12,7 @@ import UserSkinGoal from './UserSkinGoal';
 import UserRegime from './UserRegime';
 import NavBar from './NavBar';
 import HowToKnowYourSkinType from './HowToKnowYourSkinType.js';
+import MySkinDiary from './MySkinDiary';
 
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
             <Route path="/ManageProductCatalog" element={<ManageProductCatalog/>}/>
             <Route path="/SignUp" element={<SignUp/>}/>
             <Route path="/ProductCatalog" element={<ProductCatalog/>}/>
+            <Route path="/MySkinDiary" element={<MySkinDiary/>}/>
             <Route path="/UserSkinGoal" element={<UserSkinGoal/>}/>
             <Route path="/UserRegime" element={<UserRegime/>}/>
          </Routes>

@@ -36,13 +36,6 @@ const [recomIng, setRecomIng] = useState([])
 },[]);
 
 
-//   const addComma =  (arr) => {
-//     const items = arr.join(",")
-//     return items
-    
-//   }
-
-
 return (
 
       <>
@@ -53,41 +46,41 @@ return (
 
     <div className="UserSkinRegime">
         <h1 className="SkinRegimeTitle">Curate your Skincare Regime</h1>
-            <h3 className="skn">Your Skin Goal is:{skingoal}</h3>
-        <h3 className="Recommendation">Recommended Ingrdients:
-        
-        
-        {recomIng}
-
-     
-        
-        
-        </h3>
+            <h3 className="skin">Your Skin Goal is:</h3>
+            <p className="skin_g">{skingoal}</p>
+        <h3 className="Recommendation">Recommended Ingrdients:</h3>
+             <p className="skin_r">{recomIng}</p>
     </div>
 
         <div className ='AM'>
             <div className="UserSkinRegime">
                 <h1 className="AM_Regime">AM</h1>
             </div>
+
+            
           <div className='AM_C'>
+            <div className="regimelabel"><h3>Cleanser</h3></div>
             <svg width="200" height="180">
                 <rect x="50" y="20" rx="20" ry="20" width="150" height="150"/>
             </svg>
           </div>
 
            <div className='AM_T'>
+            <div className="regimelabel"><h3>Treatment</h3></div>
             <svg width="200" height="180">
                 <rect x="50" y="20" rx="20" ry="20" width="150" height="150"/>
             </svg>
           </div>
              
           <div className='AM_M'>
+            <div className="regimelabel"><h3>Moisturiser</h3></div>
             <svg width="200" height="180">
                 <rect x="50" y="20" rx="20" ry="20" width="150" height="150"/>
             </svg>
           </div>
 
           <div className='AM_SS'>
+            <div className="regimelabel"><h3>Sunscreen</h3></div>
             <svg width="200" height="180">
                 <rect x="50" y="20" rx="20" ry="20" width="150" height="150"/>
             </svg>
@@ -120,7 +113,7 @@ return (
 
           <div className='PM_SS'>
             <svg width="200" height="180">
-                <rect x="50" y="20" rx="20" ry="20" width="150" height="150"/>
+                <rect className='NA' x="50" y="20" rx="20" ry="20" width="150" height="150"/>
             </svg>
           </div>
 

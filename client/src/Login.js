@@ -47,7 +47,7 @@ function Login() {
         }
         else{
 
-           navigate("/UserSkinGoal")
+           navigate("/MySkinDiary")
            
             
          
