@@ -22,6 +22,7 @@ import { Provider } from 'react-redux'
 import {isAuth} from './components/auth'
 import AdminProducts from './components/AdminProducts'
 import CreateProductForm from './components/Product/CreateProductForm';
+import AdminUpdateProducts from './components/Product/ProductUpdate';
 
 // const router = createBrowserRouter([
 //   {
@@ -78,6 +79,10 @@ const router = createBrowserRouter([
   {
     path:'/createproducts',
     element:<PrivateRoute><CreateProductForm/></PrivateRoute>
+  },
+  {
+    path:'/updateproducts',
+    element:<PrivateRoute><AdminUpdateProducts/></PrivateRoute>
   },
   {
     path:'/signup',

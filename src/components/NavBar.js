@@ -42,6 +42,14 @@ function NavBar() {
         }
         {
           isAdmin ?
+          <NavLink to='/updateproducts'>
+            Update Products
+          </NavLink>
+          :
+          null
+        }
+        {
+          isAdmin ?
           <NavLink to='/adminupload'>
             Admin Products
           </NavLink>
