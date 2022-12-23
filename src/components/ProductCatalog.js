@@ -26,8 +26,8 @@ export default function ProductCatalog() {
 // Product type search fields
   const [name, setName] = useState(null)
   const [price, setPrice] = useState(null)
-  const [skinType, setSkinType] = useState(() => ['Oily Skin', 'Dry Skin', 'All'])
-  const [productType, setProductType] = useState(() => ['Cleanser'])
+  const [skinType, setSkinType] = useState(() => ['oily', 'dry', 'all'])
+  const [productType, setProductType] = useState(() => ['cleanser'])
   const [ingredients, setIngredients] = useState(null)
   const [sensitive, setSensitive] = useState(null)
   const [data, setData] = useState([])
@@ -95,7 +95,7 @@ export default function ProductCatalog() {
     const gridArrl = []
     if (data){
       for (let item of data){
-        gridArrl.push(<Grid sx={2}>
+        gridArrl.push(<Grid sx={2} key={item._id}>
           <ProductCard
           name={item.name}
           price={item.price}

@@ -22,25 +22,25 @@ export default function ProductTypeToggles({parentFormat, setFormatsParent}) {
       onChange={handleFormat}
       aria-label="text formatting"
     >
-      <ToggleButton value="Cleanser" aria-label="bold">
+      <ToggleButton value="cleanser" aria-label="bold">
         {/* <FormatBoldIcon /> */}
         <Typography>
             Cleanser
         </Typography>
       </ToggleButton>
-      <ToggleButton value="Treatment" aria-label="italic">
+      <ToggleButton value="treatment" aria-label="italic">
         {/* <FormatItalicIcon /> */}
         <Typography>
             Treatment
         </Typography>
       </ToggleButton>
-      <ToggleButton value="Moisturiser" aria-label="underlined">
+      <ToggleButton value="moisturiser" aria-label="underlined">
         {/* <FormatUnderlinedIcon /> */}
         <Typography>
             Moisturiser
         </Typography>
       </ToggleButton>
-      <ToggleButton value="Sunscreen" aria-label="underlined">
+      <ToggleButton value="sunscreen" aria-label="underlined">
         {/* <FormatUnderlinedIcon /> */}
         <Typography>
             Sunscreen
