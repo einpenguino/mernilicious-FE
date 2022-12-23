@@ -20,7 +20,7 @@ const UserProfiles = require('./models/UserProfile');
 const SkinGoals = require('./models/SkinGoal_Profile');
 
 const app = express();
-const PORT = 5000;
+const PORT = process.env.PORT || 8000;
 
 
 //Connect to the DB

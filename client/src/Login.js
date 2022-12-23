@@ -27,7 +27,7 @@ function Login() {
 
 //async function to sent login details and verify if account is in the DB
     const postUserLogin = async () => {
-      const response = await fetch('http://localhost:5000/login', options);
+      const response = await fetch('/login', options);
       const data = await response.json()
   
       try{ 

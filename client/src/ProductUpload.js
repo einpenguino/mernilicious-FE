@@ -71,7 +71,7 @@ useEffect(() => {
   // declare the async data fetching function
   const fetchData = async () => {
     // get the data from the api
-    const data = await fetch('http://localhost:5000/activeIng');
+    const data = await fetch('/activeIng');
     // convert the data to json
     const json = await data.json();
 
@@ -98,7 +98,7 @@ useEffect(() => {
 
   //async function to post data to DB
     const postProduct = async () => {
-      const response = await fetch('http://localhost:5000', options);
+      const response = await fetch('/', options);
       const data = await response.json();
       try{  
       

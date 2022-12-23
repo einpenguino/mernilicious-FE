@@ -19,7 +19,7 @@ const [recomIng, setRecomIng] = useState([])
   const fetchData = async () => {
    
     // get the data from the api
-    const data = await fetch(`http://localhost:5000/activeIng/${skinGoal}`)
+    const data = await fetch(`/activeIng/${skinGoal}`)
   
     // convert the data to json
     const json = await data.json();

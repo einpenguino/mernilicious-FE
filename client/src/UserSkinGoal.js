@@ -28,7 +28,7 @@ useEffect(() => {
   // declare the async data fetching function
   const fetchData = async () => {
     // get the data from the api
-    const data = await fetch('http://localhost:5000/skinGoal');
+    const data = await fetch('/skinGoal');
     // convert the data to json
     const json = await data.json();
 
@@ -55,7 +55,7 @@ useEffect(() => {
 
 //async function to sent userSkinProfile details and verify if account is in the DB
     const postUserProfile = async () => {
-      const response = await fetch('http://localhost:5000/skinsurvey', options);
+      const response = await fetch('/skinsurvey', options);
       const data = await response.json()
       try{ 
       

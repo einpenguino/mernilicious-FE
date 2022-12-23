@@ -16,7 +16,7 @@ function NavBar({children}) {
   const toggle = () => setIsOpen(!isOpen)
 
   const logout =  async() => {
-    const data = await fetch('http://localhost:5000/logout')
+    const data = await fetch('/logout')
     sessionStorage.clear()
     navigate("/")
     

@@ -14,7 +14,7 @@ useEffect(() => {
   // declare the async data fetching function
   const fetchData = async () => {
     // get the data from the api
-    const data = await fetch('http://localhost:5000/prod');
+    const data = await fetch('/prod');
     // convert the data to json
     const json = await data.json();
 
@@ -38,7 +38,7 @@ const handleCheckBox = (e) =>{
 }
 
 const allDelete = async () => {
-    const data = await fetch('http://localhost:5000/prod', {
+    const data = await fetch('/prod', {
       method: "DELETE",
       body: JSON.stringify(isChecked),
        credentials: "include",

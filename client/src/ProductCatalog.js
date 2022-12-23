@@ -21,7 +21,7 @@ useEffect(() => {
   const fetchData = async () => {
    
     // get the data from the api
-    const data = await fetch('http://localhost:5000/prod');
+    const data = await fetch('/prod');
     // convert the data to json
     const json = await data.json();
 
