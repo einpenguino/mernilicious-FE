@@ -5,6 +5,7 @@ const express = require("express");
 const cors = require ("cors");
 const cookieParser = require('cookie-parser')
 const jwt = require ("jsonwebtoken");
+const path = require('path');
 const requireAuth = require ('./middleware/verifyAuth')
 
 const mongoose = require('mongoose')
