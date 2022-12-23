@@ -32,7 +32,7 @@ function SignUp() {
 
 //async function to post data to DB
     const postUser = async () => {
-      const response = await fetch('/userCred', options);
+      const response = await fetch('/api/userCred', options);
       try{ 
       
       const data = await response.json();

@@ -19,7 +19,7 @@ function Products({prodDetails}) {
               <img src={proditem.Prod_Image} alt={proditem.Name}/>
               </div>
               <div className="iName"> <p>{proditem.Name}</p></div>
-              <div className="iPrice"> <p>{proditem.Price}</p></div>
+              <div className="iPrice"> <p>${proditem.Price}</p></div>
             </div>
           ))}
           </div>
